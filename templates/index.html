@@ -35,37 +35,37 @@
 
     <center>
 
-    <!--   <div id="regions_div" style="width: 900px; height: 500px;"></div> -->
+      <!--   <div id="regions_div" style="width: 900px; height: 500px;"></div> -->
 
 
-<div id="geochart-colors" style="width: 700px; height: 433px;"></div>
-<div id="chart_div" style="width: 900px; height: 500px;"></div>
+      <div id="geochart-colors" style="width: 700px; height: 433px;"></div>
+      <div id="chart_div" style="width: 900px; height: 500px;"></div>
 
-    <canvas class="slate" width="500" height="500" id="state_frag">
-    </canvas>
+      <canvas class="slate" width="500" height="500" id="state_frag">
+      </canvas>
 
-    <canvas class="slate" width="500" height="500" id="glob_dev">
-    </canvas>
+      <canvas class="slate" width="500" height="500" id="glob_dev">
+      </canvas>
     </center>
 
     <br>
     <center>
       <h3>Choose a Country</h3>
-    Country:<br>
-    <input type="text" name="country" value="Choose a country">
+      Country:<br>
+      <input type="text" name="country" value="Choose a country">
     </center>
     <br>
 
     <!-- ==========================
-	These are the line graphs
-        ========================== -->
+	 These are the line graphs
+         ========================== -->
     <center>
       <h4>Track Devolpment and Stabillty Globally</h4>
-    <canvas class="slate" width="500" height="500" id="line_state_frag">
-    </canvas>
+      <canvas class="slate" width="500" height="500" id="line_state_frag">
+      </canvas>
 
-    <canvas class="slate" width="500" height="500" id="line_glob_dev">
-    </canvas>
+      <canvas class="slate" width="500" height="500" id="line_glob_dev">
+      </canvas>
     </center>
 
     <center>
@@ -74,247 +74,242 @@
     </center>
 
     <!--
-    <center>
-      <h2> Legend </h2>
-      <div class="chart" id="legend"></div>
-    </center>
+	<center>
+	  <h2> Legend </h2>
+	  <div class="chart" id="legend"></div>
+	</center>
 
-    <h2>Total Deficit as % of GDP</h2>
-    <div class="chart" id="sd_gdp">
-    </div>
+	<h2>Total Deficit as % of GDP</h2>
+	<div class="chart" id="sd_gdp">
+	</div>
 
-    <h2>Total Deficit</h2>
-    <div class="chart" id="sd">
-    </div>
+	<h2>Total Deficit</h2>
+	<div class="chart" id="sd">
+	</div>
 
-    <h2>GDP</h2>
-    <div class="chart" id="gdp">
-    </div>
+	<h2>GDP</h2>
+	<div class="chart" id="gdp">
+	</div>
 
-    <h2>Total Revenues</h2>
-    <div class="chart" id="rev">
-    </div>
+	<h2>Total Revenues</h2>
+	<div class="chart" id="rev">
+	</div>
 
-    <h2>Total Spending</h2>
-    <div class="chart" id="spend">
-    </div>
+	<h2>Total Spending</h2>
+	<div class="chart" id="spend">
+	</div>
 
-    <h2>Total Federal Debt as % of GDP</h2>
-    <div class="chart" id="fd_gdp">
-    </div>
-    <h2>Total Federal Debt</h2>
-    <div class="chart" id="fd">
-    </div>
+	<h2>Total Federal Debt as % of GDP</h2>
+	<div class="chart" id="fd_gdp">
+	</div>
+	<h2>Total Federal Debt</h2>
+	<div class="chart" id="fd">
+	</div>
+
+	<script>
+	  google.charts.load('current', {'packages':['geochart']});
+	  google.charts.setOnLoadCallback(drawRegionsMap);
+
+	  function drawRegionsMap() {
+
+	  var data = google.visualization.arrayToDataTable([
+          ['Country', 'Popularity'],
+          ['Germany', 200],
+          ['United States', 300],
+          ['Brazil', 400],
+          ['Canada', 500],
+          ['France', 600],
+          ['RU', 700]
+	  ]);
+
+	  var options = {};
+
+	  var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+
+	  chart.draw(data, options);
+	  }
+	</script>
+	-->
 
     <script>
-    google.charts.load('current', {'packages':['geochart']});
-     google.charts.setOnLoadCallback(drawRegionsMap);
 
-     function drawRegionsMap() {
+      google.charts.load('current', {'packages':['geochart']});
+      google.charts.setOnLoadCallback(drawRegionsMap);
 
-       var data = google.visualization.arrayToDataTable([
-         ['Country', 'Popularity'],
-         ['Germany', 200],
-         ['United States', 300],
-         ['Brazil', 400],
-         ['Canada', 500],
-         ['France', 600],
-         ['RU', 700]
-       ]);
-
-       var options = {};
-
-       var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
-
-       chart.draw(data, options);
-     }
-   -->
+      <!-- google.charts.setOnLoadCallback(drawMarkersMap); -->
 
 
+      function drawRegionsMap() {
+      var data = google.visualization.arrayToDataTable([
+      ['Country',   'Latitude'],
+      ['Algeria', 106], ['Angola', -18], ['Benin', 16], ['Botswana', -24],
+      ['Burkina Faso', 112], ['Burundi', -3], ['Cameroon', 13],
+      ['Canary Islands', 28], ['Cape Verde', 15],
+      ['Central African Republic', 4], ['Ceuta', 35], ['Chad', 12],
+      ['Comoros', -12], ['Cote d\'Ivoire', 6],
+      ['Democratic Republic of the Congo', -3], ['Djibouti', 12],
+      ['Egypt', 26], ['Equatorial Guinea', 3], ['Eritrea', 15],
+      ['Ethiopia', 9], ['Gabon', 0], ['Gambia', 13], ['Ghana', 5],
+      ['Guinea', 10], ['Guinea-Bissau', 12], ['Kenya', -1],
+      ['Lesotho', -29], ['Liberia', 6], ['Libya', 32], ['Madagascar', null],
+      ['Madeira', 33], ['Malawi', -14], ['Mali', 12], ['Mauritania', 18],
+      ['Mauritius', -20], ['Mayotte', -13], ['Spain', 115],
+      ['Morocco', 32], ['Mozambique', -25], ['Namibia', -22],
+      ['Niger', 14], ['Nigeria', 8], ['Republic of the Congo', -1],
+      ['Réunion', -21], ['Russia', 60], ['Rwanda', -2], ['Saint Helena', -16],
+      ['São Tomé and Principe', 0], ['Senegal', 15],
+      ['Seychelles', -5], ['Sierra Leone', 8], ['Somalia', 2],
+      ['Sudan', 15], ['South Africa', -30], ['South Sudan', 5],
+      ['Swaziland', -26], ['Tanzania', -6], ['Togo', 6], ['Tunisia', 34],
+      ['Uganda', 1], ['Western Sahara', 25], ['Zambia', -15],
+      ['Zimbabwe', -18]
+      ]);
+      var datas = google.visualization.arrayToDataTable([
+      ['City',   'Population', 'Area'],
+      ['Rome',      2761477,    1285.31],
+      ['Milan',     1324110,    181.76],
+      ['Naples',    959574,     117.27],
+      ['Turin',     907563,     130.17],
+      ['Palermo',   655875,     158.9],
+      ['Genoa',     607906,     243.60],
+      ['Bologna',   380181,     140.7],
+      ['Florence',  371282,     102.41],
+      ['Fiumicino', 67370,      213.44],
+      ['Anzio',     52192,      43.43],
+      ['Ciampino',  38262,      11]
+      ]);
 
 
+      var option = {
+      //region: '002', // Africa
+      colorAxis: {colors: ['green', 'yellow','orange', 'red']},
+      backgroundColor: '#81d4fa',
+      datalessRegionColor: 'white',
+      defaultColor: '#f5f5f5',
+      //    options['datamode'] = 'markers';
+      };
+      /*
+      var options = {
+      region: 'IT',
+      displayMode: 'markers',
+      colorAxis: {colors: ['green', 'blue']}
+      };
 
-
-
-
-<script>
-
-     google.charts.load('current', {'packages':['geochart']});
-google.charts.setOnLoadCallback(drawRegionsMap);
-
-     google.charts.setOnLoadCallback(drawMarkersMap);
-
-
-function drawRegionsMap() {
-  var data = google.visualization.arrayToDataTable([
-    ['Country',   'Latitude'],
-    ['Algeria', 106], ['Angola', -18], ['Benin', 16], ['Botswana', -24],
-    ['Burkina Faso', 112], ['Burundi', -3], ['Cameroon', 13],
-    ['Canary Islands', 28], ['Cape Verde', 15],
-    ['Central African Republic', 4], ['Ceuta', 35], ['Chad', 12],
-    ['Comoros', -12], ['Cote d\'Ivoire', 6],
-    ['Democratic Republic of the Congo', -3], ['Djibouti', 12],
-    ['Egypt', 26], ['Equatorial Guinea', 3], ['Eritrea', 15],
-    ['Ethiopia', 9], ['Gabon', 0], ['Gambia', 13], ['Ghana', 5],
-    ['Guinea', 10], ['Guinea-Bissau', 12], ['Kenya', -1],
-    ['Lesotho', -29], ['Liberia', 6], ['Libya', 32], ['Madagascar', null],
-    ['Madeira', 33], ['Malawi', -14], ['Mali', 12], ['Mauritania', 18],
-    ['Mauritius', -20], ['Mayotte', -13], ['Spain', 115],
-    ['Morocco', 32], ['Mozambique', -25], ['Namibia', -22],
-    ['Niger', 14], ['Nigeria', 8], ['Republic of the Congo', -1],
-    ['Réunion', -21], ['Russia', 60], ['Rwanda', -2], ['Saint Helena', -16],
-    ['São Tomé and Principe', 0], ['Senegal', 15],
-    ['Seychelles', -5], ['Sierra Leone', 8], ['Somalia', 2],
-    ['Sudan', 15], ['South Africa', -30], ['South Sudan', 5],
-    ['Swaziland', -26], ['Tanzania', -6], ['Togo', 6], ['Tunisia', 34],
-    ['Uganda', 1], ['Western Sahara', 25], ['Zambia', -15],
-    ['Zimbabwe', -18]
-  ]);
-  var datas = google.visualization.arrayToDataTable([
-    ['City',   'Population', 'Area'],
-    ['Rome',      2761477,    1285.31],
-    ['Milan',     1324110,    181.76],
-    ['Naples',    959574,     117.27],
-    ['Turin',     907563,     130.17],
-    ['Palermo',   655875,     158.9],
-    ['Genoa',     607906,     243.60],
-    ['Bologna',   380181,     140.7],
-    ['Florence',  371282,     102.41],
-    ['Fiumicino', 67370,      213.44],
-    ['Anzio',     52192,      43.43],
-    ['Ciampino',  38262,      11]
-  ]);
-
-
-  var option = {
-    //region: '002', // Africa
-    colorAxis: {colors: ['green', 'yellow','orange', 'red']},
-    backgroundColor: '#81d4fa',
-    datalessRegionColor: 'white',
-    defaultColor: '#f5f5f5',
-//    options['datamode'] = 'markers';
-  };
-/*
-  var options = {
-       region: 'IT',
-       displayMode: 'markers',
-       colorAxis: {colors: ['green', 'blue']}
-     };
-
-*/
-  var chart = new google.visualization.GeoChart(document.getElementById('geochart-colors'));
-  chart.draw(data, option);
-//  chart.draw(datas, options);
-};
+      */
+      var chart = new google.visualization.GeoChart(document.getElementById('geochart-colors'));
+      chart.draw(data, option);
+      //  chart.draw(datas, options);
+      };
 
 
 
 
-/*
+      /*
 
       function drawMarkersMap() {
       var data = google.visualization.arrayToDataTable([
-        ['City',   'Population', 'Area'],
-        ['Rome',      2761477,    1285.31],
-        ['Milan',     1324110,    181.76],
-        ['Naples',    959574,     117.27],
-        ['Turin',     907563,     130.17],
-        ['Palermo',   655875,     158.9],
-        ['Genoa',     607906,     243.60],
-        ['Bologna',   380181,     140.7],
-        ['Florence',  371282,     102.41],
-        ['Fiumicino', 67370,      213.44],
-        ['Anzio',     52192,      43.43],
-        ['Ciampino',  38262,      11]
+      ['City',   'Population', 'Area'],
+      ['Rome',      2761477,    1285.31],
+      ['Milan',     1324110,    181.76],
+      ['Naples',    959574,     117.27],
+      ['Turin',     907563,     130.17],
+      ['Palermo',   655875,     158.9],
+      ['Genoa',     607906,     243.60],
+      ['Bologna',   380181,     140.7],
+      ['Florence',  371282,     102.41],
+      ['Fiumicino', 67370,      213.44],
+      ['Anzio',     52192,      43.43],
+      ['Ciampino',  38262,      11]
       ]);
 
       var options = {
-    //    region: 'IT',
-        displayMode: 'markers',
-        colorAxis: {colors: ['green', 'blue']}
+      //    region: 'IT',
+      displayMode: 'markers',
+      colorAxis: {colors: ['green', 'blue']}
       };
 
-        var chart = new google.visualization.GeoChart(document.getElementById('geochart-colors'));
-        chart.draw(data, options);
+      var chart = new google.visualization.GeoChart(document.getElementById('geochart-colors'));
+      chart.draw(data, options);
       }
-*/
+      */
 
 
 
-    //put in list of numbers here
-    var info_leg = [2016, 2017];
-    var info_rev = [2.99, 3.21];
-    var info_spend = [3.54, 3.65];
-    var info_sd = [552, 443];
-    var info_sd_gdp = [3.3, 2.6];
-    var info_gdp = [16.5, 17];
-    var info_fd_gdp= [105.2, 104.4];
-    var info_fd= [17.4, 17.7];
-    var colors = ['#43a2ca', '#f03b20'];
+      //put in list of numbers here
+      var info_leg = [2016, 2017];
+      var info_rev = [2.99, 3.21];
+      var info_spend = [3.54, 3.65];
+      var info_sd = [552, 443];
+      var info_sd_gdp = [3.3, 2.6];
+      var info_gdp = [16.5, 17];
+      var info_fd_gdp= [105.2, 104.4];
+      var info_fd= [17.4, 17.7];
+      var colors = ['#43a2ca', '#f03b20'];
 
-   var makeBars = function(graph, unit, info) {
-     var dyn = d3.select(graph);
-     dyn.selectAll("div")
-	  .data(info)
-	  .enter()
-	  .append("div")
-	  .style("width", function(d) {
-	    return d  + "px";
-	  })
-    .style("background-color", function(d) {
-    if (d==info[0]) {
+      var makeBars = function(graph, unit, info) {
+      var dyn = d3.select(graph);
+      dyn.selectAll("div")
+      .data(info)
+      .enter()
+      .append("div")
+      .style("width", function(d) {
+      return d  + "px";
+      })
+      .style("background-color", function(d) {
+      if (d==info[0]) {
       return colors[2];
-    }
-    else {
+      }
+      else {
       return colors[1];
-    }
-  })
-	  .text( function(d) {
-	    return d + " " + unit;
-	  });
-     };
-    var transitionTest = function( graph, scale, info ) {
-    var dyn = d3.select(graph);
-    dyn.selectAll("div")
-    .data(info)
-    .transition()
-    .duration(2000)
-    .style("width", function(d) {
-    return d * scale + "px";
-    });
-    };
+      }
+      })
+      .text( function(d) {
+      return d + " " + unit;
+      });
+      };
+      var transitionTest = function( graph, scale, info ) {
+      var dyn = d3.select(graph);
+      dyn.selectAll("div")
+      .data(info)
+      .transition()
+      .duration(2000)
+      .style("width", function(d) {
+      return d * scale + "px";
+      });
+      };
 
-    var mkleg = function(){
-    var dyn = d3.select('#legend');
-    dyn.selectAll("div").style("width", function(d){
-    return "26px";
-    });
-    };
+      var mkleg = function(){
+      var dyn = d3.select('#legend');
+      dyn.selectAll("div").style("width", function(d){
+      return "26px";
+      });
+      };
 
-    //put in graph info in id#, unit of price, and name of list format
+      //put in graph info in id#, unit of price, and name of list format
 
-    makeBars('#legend',"",info_leg);
-    mkleg();
+      makeBars('#legend',"",info_leg);
+      mkleg();
 
-    makeBars('#rev', "trillion", info_rev);
-    transitionTest('#rev', 100, info_rev);
+      makeBars('#rev', "trillion", info_rev);
+      transitionTest('#rev', 100, info_rev);
 
-    makeBars('#spend', "trillion", info_spend);
-    transitionTest('#spend', 100, info_spend);
+      makeBars('#spend', "trillion", info_spend);
+      transitionTest('#spend', 100, info_spend);
 
-    makeBars('#sd', "billion", info_sd);
-    transitionTest('#sd', 1.5, info_sd);
-    makeBars('#sd_gdp', "%", info_sd_gdp);
-    transitionTest('#sd_gdp', 100, info_sd_gdp);
+      makeBars('#sd', "billion", info_sd);
+      transitionTest('#sd', 1.5, info_sd);
+      makeBars('#sd_gdp', "%", info_sd_gdp);
+      transitionTest('#sd_gdp', 100, info_sd_gdp);
 
-    makeBars('#gdp', "Trillion", info_gdp);
-    transitionTest('#gdp', 35, info_gdp);
+      makeBars('#gdp', "Trillion", info_gdp);
+      transitionTest('#gdp', 35, info_gdp);
 
-    makeBars('#fd_gdp', 'Percent', info_fd_gdp);
-    transitionTest('#fd_gdp', 1.5, info_fd_gdp);
-    makeBars('#fd', "Trillion", info_fd);
-    transitionTest('#fd', 10, info_fd);
+      makeBars('#fd_gdp', 'Percent', info_fd_gdp);
+      transitionTest('#fd_gdp', 1.5, info_fd_gdp);
+      makeBars('#fd', "Trillion", info_fd);
+      transitionTest('#fd', 10, info_fd);
     </script>
+    <script src="static/js/line_graphs.js"></script>
 
   </body>
 </html>
