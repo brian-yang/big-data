@@ -3,6 +3,7 @@
 <html>
   <head>
     <script src="d3-src/d3.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <title>Billionares, State Fragillity, and Global Devolpment</title>
 
     <style>
@@ -14,7 +15,7 @@
       margin: 1px;
       color: white;
       }
-      
+
       .slate {
       border: thick solid black;
       }
@@ -33,10 +34,13 @@
     </center>
 
     <center>
-    <canvas class="slate" width="500" height="500" id="state_frag">   
+
+       <div id="regions_div" style="width: 900px; height: 500px;"></div>
+
+    <canvas class="slate" width="500" height="500" id="state_frag">
     </canvas>
 
-    <canvas class="slate" width="500" height="500" id="glob_dev">   
+    <canvas class="slate" width="500" height="500" id="glob_dev">
     </canvas>
     </center>
 
@@ -53,10 +57,10 @@
 	-->
     <center>
       <h4>Track Devolpment and Stabillty Globally</h4>
-    <canvas class="slate" width="500" height="500" id="line_state_frag">   
+    <canvas class="slate" width="500" height="500" id="line_state_frag">
     </canvas>
 
-    <canvas class="slate" width="500" height="500" id="line_glob_dev">   
+    <canvas class="slate" width="500" height="500" id="line_glob_dev">
     </canvas>
     </center>
 
@@ -64,13 +68,13 @@
       <h5>Bar Graphs</h5>
       THERE WOULD BE SOME D3 BAR GRAPHS HERE
     </center>
-    
+
     <!--
     <center>
       <h2> Legend </h2>
       <div class="chart" id="legend"></div>
     </center>
-    
+
     <h2>Total Deficit as % of GDP</h2>
     <div class="chart" id="sd_gdp">
     </div>
@@ -78,7 +82,7 @@
     <h2>Total Deficit</h2>
     <div class="chart" id="sd">
     </div>
-    
+
     <h2>GDP</h2>
     <div class="chart" id="gdp">
     </div>
@@ -99,6 +103,27 @@
     </div>
     -->
     <script>
+    google.charts.load('current', {'packages':['geochart']});
+     google.charts.setOnLoadCallback(drawRegionsMap);
+
+     function drawRegionsMap() {
+
+       var data = google.visualization.arrayToDataTable([
+         ['Country', 'Popularity'],
+         ['Germany', 200],
+         ['United States', 300],
+         ['Brazil', 400],
+         ['Canada', 500],
+         ['France', 600],
+         ['RU', 700]
+       ]);
+
+       var options = {};
+
+       var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+
+       chart.draw(data, options);
+     }
     //put in list of numbers here
     var info_leg = [2016, 2017];
     var info_rev = [2.99, 3.21];
@@ -109,6 +134,7 @@
     var info_fd_gdp= [105.2, 104.4];
     var info_fd= [17.4, 17.7];
     var colors = ['#43a2ca', '#f03b20'];
+    
    var makeBars = function(graph, unit, info) {
      var dyn = d3.select(graph);
      dyn.selectAll("div")
@@ -140,33 +166,33 @@
     return d * scale + "px";
     });
     };
-    
+
     var mkleg = function(){
     var dyn = d3.select('#legend');
     dyn.selectAll("div").style("width", function(d){
     return "26px";
     });
     };
-    
+
     //put in graph info in id#, unit of price, and name of list format
-    
+
     makeBars('#legend',"",info_leg);
     mkleg();
-    
+
     makeBars('#rev', "trillion", info_rev);
     transitionTest('#rev', 100, info_rev);
-    
+
     makeBars('#spend', "trillion", info_spend);
     transitionTest('#spend', 100, info_spend);
-    
+
     makeBars('#sd', "billion", info_sd);
     transitionTest('#sd', 1.5, info_sd);
     makeBars('#sd_gdp', "%", info_sd_gdp);
     transitionTest('#sd_gdp', 100, info_sd_gdp);
-    
+
     makeBars('#gdp', "Trillion", info_gdp);
     transitionTest('#gdp', 35, info_gdp);
-    
+
     makeBars('#fd_gdp', 'Percent', info_fd_gdp);
     transitionTest('#fd_gdp', 1.5, info_fd_gdp);
     makeBars('#fd', "Trillion", info_fd);
