@@ -35,7 +35,7 @@ class DatasetException(Exception):
     ''' Thrown when there is an error loading the dataset for some reason.'''
     pass
     
-_Constants._DATABASE_NAME = "state_fragility.db"
+_Constants._DATABASE_NAME = "data/state_fragility.db"
 if not _os.access(_Constants._DATABASE_NAME, _os.F_OK):
     raise DatasetException("Error! Could not find a \"{0}\" file. Make sure that there is a \"{0}\" in the same directory as \"{1}.py\"! Spelling is very important here.".format(_Constants._DATABASE_NAME, __name__))
 elif not _os.access(_Constants._DATABASE_NAME, _os.R_OK):
@@ -44,7 +44,7 @@ elif not _os.access(_Constants._DATABASE_NAME, _os.W_OK):
     _sys.stderr.write('The local cache (\" \") will not be updated. Make sure that it is writable by changing its permissions. You may need to get help from your instructor.\n'.format(_Constants._DATABASE_NAME))
     _sys.stderr.flush()
 
-_Constants._DATABASE = _sql.connect(_Constants._DATABASE_NAME)
+_Constants._DATABASE = _sql.connect(_Constants._DATABASE_NAME, check_same_thread=False)
 
 class _Auxiliary(object):
     @staticmethod

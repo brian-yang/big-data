@@ -1,7 +1,7 @@
 '''
 Hello student. Thank you for downloading a CORGIS library. However, you do not need to open this library. Instead you should use the following:
 
-    import global_development
+    import billionaires
     
 If you opened the file because you are curious how this library works, then well done! We hope that you find it a useful learning experience. However, you should know that this code is meant to solve somewhat esoteric pedagogical problems, so it is often not best practices. 
 '''
@@ -17,7 +17,7 @@ class _Constants(object):
     Global singleton object to hide some of the constants; some IDEs reveal internal module details very aggressively, and there's no other way to hide stuff.
     '''
     _HEADER = {'User-Agent': 
-              'CORGIS Global Development library for educational purposes'}
+              'CORGIS Billionaires library for educational purposes'}
     _PYTHON_3 = _sys.version_info >= (3, 0)
     _TEST = False
     _HARDWARE = 1000
@@ -35,7 +35,7 @@ class DatasetException(Exception):
     ''' Thrown when there is an error loading the dataset for some reason.'''
     pass
     
-_Constants._DATABASE_NAME = "global_development.db"
+_Constants._DATABASE_NAME = "data/billionaires.db"
 if not _os.access(_Constants._DATABASE_NAME, _os.F_OK):
     raise DatasetException("Error! Could not find a \"{0}\" file. Make sure that there is a \"{0}\" in the same directory as \"{1}.py\"! Spelling is very important here.".format(_Constants._DATABASE_NAME, __name__))
 elif not _os.access(_Constants._DATABASE_NAME, _os.R_OK):
@@ -44,7 +44,7 @@ elif not _os.access(_Constants._DATABASE_NAME, _os.W_OK):
     _sys.stderr.write('The local cache (\" \") will not be updated. Make sure that it is writable by changing its permissions. You may need to get help from your instructor.\n'.format(_Constants._DATABASE_NAME))
     _sys.stderr.flush()
 
-_Constants._DATABASE = _sql.connect(_Constants._DATABASE_NAME)
+_Constants._DATABASE = _sql.connect(_Constants._DATABASE_NAME, check_same_thread=False)
 
 class _Auxiliary(object):
     @staticmethod
@@ -103,76 +103,17 @@ class _Auxiliary(object):
 
 
 
-def get_reports(test=False):
+def get_billionaires():
     """
-    Returns global development reports from the dataset.
+    Returns information about all the billionaires.
     
     """
-    if _Constants._TEST or test:
-        rows = _Constants._DATABASE.execute("SELECT data FROM development LIMIT {hardware}".format(
+    if False:
+        # If there was a Test version of this method, it would go here. But alas.
+        pass
+    else:
+        rows = _Constants._DATABASE.execute("SELECT data FROM billionaires".format(
             hardware=_Constants._HARDWARE))
-        data = [r[0] for r in rows]
-        data = [_Auxiliary._byteify(_json.loads(r)) for r in data]
-        
-        return _Auxiliary._byteify(data)
-        
-    else:
-        rows = _Constants._DATABASE.execute("SELECT data FROM development".format(
-            hardware=_Constants._HARDWARE))
-        data = [r[0] for r in rows]
-        data = [_Auxiliary._byteify(_json.loads(r)) for r in data]
-        
-        return _Auxiliary._byteify(data)
-        
-
-def get_reports_by_year(year, test=False):
-    """
-    Returns global development reports for a specified year.
-    
-    :param year: The desired year
-    :type year: int
-    """
-    
-    if _Constants._TEST or test:
-        rows = _Constants._DATABASE.execute("SELECT data FROM development WHERE year=? LIMIT {hardware}".format(
-            hardware=_Constants._HARDWARE),
-            (year, ))
-        data = [r[0] for r in rows]
-        data = [_Auxiliary._byteify(_json.loads(r)) for r in data]
-        
-        return _Auxiliary._byteify(data)
-        
-    else:
-        rows = _Constants._DATABASE.execute("SELECT data FROM development WHERE year=?".format(
-            hardware=_Constants._HARDWARE),
-            (year, ))
-        data = [r[0] for r in rows]
-        data = [_Auxiliary._byteify(_json.loads(r)) for r in data]
-        
-        return _Auxiliary._byteify(data)
-        
-
-def get_reports_by_country(country, test=False):
-    """
-    Returns global development reports for a specified country.
-    
-    :param country: The desired country
-    :type country: str
-    """
-    
-    if _Constants._TEST or test:
-        rows = _Constants._DATABASE.execute("SELECT data FROM development WHERE country=? LIMIT {hardware}".format(
-            hardware=_Constants._HARDWARE),
-            (country, ))
-        data = [r[0] for r in rows]
-        data = [_Auxiliary._byteify(_json.loads(r)) for r in data]
-        
-        return _Auxiliary._byteify(data)
-        
-    else:
-        rows = _Constants._DATABASE.execute("SELECT data FROM development WHERE country=?".format(
-            hardware=_Constants._HARDWARE),
-            (country, ))
         data = [r[0] for r in rows]
         data = [_Auxiliary._byteify(_json.loads(r)) for r in data]
         
@@ -187,63 +128,16 @@ def _test_interfaces():
     from pprint import pprint as _pprint
     from timeit import default_timer as _default_timer
     # Production test
-    print("Production get_reports")
+    print("Production get_billionaires")
     start_time = _default_timer()
-    result = get_reports()
-    
-    print("{} entries found.".format(len(result)))
-    _pprint(_Auxiliary._guess_schema(result))
-    
-    print("Time taken: {}".format(_default_timer() - start_time))
-    # Test test
-    print("Test get_reports")
-    start_time = _default_timer()
-    result = get_reports(test=True)
+    result = get_billionaires()
     
     print("{} entries found.".format(len(result)))
     _pprint(_Auxiliary._guess_schema(result))
     
     print("Time taken: {}".format(_default_timer() - start_time))
     
-    # Production test
-    print("Production get_reports_by_year")
-    start_time = _default_timer()
-    result = get_reports_by_year(1990)
-    
-    print("{} entries found.".format(len(result)))
-    _pprint(_Auxiliary._guess_schema(result))
-    
-    print("Time taken: {}".format(_default_timer() - start_time))
-    # Test test
-    print("Test get_reports_by_year")
-    start_time = _default_timer()
-    result = get_reports_by_year(1990, test=True)
-    
-    print("{} entries found.".format(len(result)))
-    _pprint(_Auxiliary._guess_schema(result))
-    
-    print("Time taken: {}".format(_default_timer() - start_time))
-    
-    # Production test
-    print("Production get_reports_by_country")
-    start_time = _default_timer()
-    result = get_reports_by_country("Afghanistan")
-    
-    print("{} entries found.".format(len(result)))
-    _pprint(_Auxiliary._guess_schema(result))
-    
-    print("Time taken: {}".format(_default_timer() - start_time))
-    # Test test
-    print("Test get_reports_by_country")
-    start_time = _default_timer()
-    result = get_reports_by_country("Afghanistan", test=True)
-    
-    print("{} entries found.".format(len(result)))
-    _pprint(_Auxiliary._guess_schema(result))
-    
-    print("Time taken: {}".format(_default_timer() - start_time))
-    
-
+"""
 if __name__ == '__main__':
     from optparse import OptionParser as _OptionParser
     _parser = _OptionParser()
@@ -254,3 +148,4 @@ if __name__ == '__main__':
     
     if _options.test:
         _test_interfaces()
+"""

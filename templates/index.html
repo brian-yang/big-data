@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <html>
   <head>
@@ -39,7 +39,9 @@
 
 
       <div id="geochart-colors" style="width: 700px; height: 433px;"></div>
-      <div id="chart_div" style="width: 900px; height: 500px;"></div>
+
+   <!--   <div id="chart_div" style="width: 900px; height: 500px;"></div> -->
+
 
       <canvas class="slate" width="500" height="500" id="state_frag">
       </canvas>
@@ -47,6 +49,7 @@
       <canvas class="slate" width="500" height="500" id="glob_dev">
       </canvas>
     </center>
+
 
     <br>
     <center>
@@ -142,6 +145,8 @@
       function drawRegionsMap() {
       var data = google.visualization.arrayToDataTable([
       ['Country',   'Latitude'],
+{% for gd in gd_list %} {{gd | safe}}, {% endfor %}
+/*
       ['Algeria', 106], ['Angola', -18], ['Benin', 16], ['Botswana', -24],
       ['Burkina Faso', 112], ['Burundi', -3], ['Cameroon', 13],
       ['Canary Islands', 28], ['Cape Verde', 15],
@@ -162,11 +167,13 @@
       ['Sudan', 15], ['South Africa', -30], ['South Sudan', 5],
       ['Swaziland', -26], ['Tanzania', -6], ['Togo', 6], ['Tunisia', 34],
       ['Uganda', 1], ['Western Sahara', 25], ['Zambia', -15],
-      ['Zimbabwe', -18]
+      ['Zimbabwe', -18] */
       ]);
+
+
       var datas = google.visualization.arrayToDataTable([
       ['City',   'Population', 'Area'],
-      ['Rome',      2761477,    1285.31],
+  /*    ['Rome',      2761477,    1285.31],
       ['Milan',     1324110,    181.76],
       ['Naples',    959574,     117.27],
       ['Turin',     907563,     130.17],
@@ -176,7 +183,8 @@
       ['Florence',  371282,     102.41],
       ['Fiumicino', 67370,      213.44],
       ['Anzio',     52192,      43.43],
-      ['Ciampino',  38262,      11]
+      ['Ciampino',  38262,      11]*/
+
       ]);
 
 
@@ -209,6 +217,7 @@
       function drawMarkersMap() {
       var data = google.visualization.arrayToDataTable([
       ['City',   'Population', 'Area'],
+
       ['Rome',      2761477,    1285.31],
       ['Milan',     1324110,    181.76],
       ['Naples',    959574,     117.27],
