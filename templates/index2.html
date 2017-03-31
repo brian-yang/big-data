@@ -25,7 +25,8 @@
   <script src="http://d3js.org/d3.v3.min.js"></script>
 
   <script>
-
+    var country = "Ethiopia";
+    
     // Set the dimensions of the canvas / graph
     var margin = {top: 30, right: 20, bottom: 30, left: 50},
     width = 600 - margin.left - margin.right,
@@ -62,7 +63,7 @@
     "translate(" + margin.left + "," + margin.top + ")");
 
     // Get the data
-    d3.csv("../static/data.csv", function(error, data) {
+    d3.json("/linegraphdata/" + country, function(error, data) {
     data.forEach(function(d) {
     console.log(d);
     <!-- d.date = parseDate(d.date); -->

@@ -28,14 +28,18 @@ def root():
 
 @app.route('/test/')
 def test():
+    return render_template("index2.html")
+
+@app.route('/linegraphdata/<country>'):
+def jsonLineGraph(country):
     for value in state_fragility.get_scores():
         sf_index = value['Metrics']['State Fragility Index']
         country = value['Country']
         year = value['Year']
         # print "%s\n%s\n%s" % (sf_index, country, year)
         print "%s,%s" % (year,sf_index)
-        
-    return render_template("index2.html")
+
+    return render_template("jsonLineGraph.html", country = country)
 
 if __name__ == '__main__':
     app.debug=True
