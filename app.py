@@ -28,12 +28,13 @@ def root():
 
 @app.route('/test/')
 def test():
-    # for value in state_fragility.get_scores():
-    #     print
-    #     print value
-        # print value['Metrics']['State Fragility Index']
-        # print value['Metrics']['Country']
-        # print value['Metrics']['Year']
+    for value in state_fragility.get_scores():
+        sf_index = value['Metrics']['State Fragility Index']
+        country = value['Country']
+        year = value['Year']
+        # print "%s\n%s\n%s" % (sf_index, country, year)
+        print "%s,%s" % (year,sf_index)
+        
     return render_template("index2.html")
 
 if __name__ == '__main__':

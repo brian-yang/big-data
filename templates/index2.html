@@ -32,15 +32,17 @@
     height = 270 - margin.top - margin.bottom;
 
     // Parse the date / time
-    var parseDate = d3.time.format("%y").parse;
-
+    <!-- var parseDate = d3.time.format("%y").parse; -->
+    <!-- console.log(parseDate); -->
+    
     // Set the ranges
-    var x = d3.time.scale().range([0, width]);
+    var x = d3.scale.linear().range([0, width]);
+    <!-- var x = d3.time.scale().range([0, width]); -->
     var y = d3.scale.linear().range([height, 0]);
 
     // Define the axes
     var xAxis = d3.svg.axis().scale(x)
-    .orient("bottom").ticks(5);
+    .orient("bottom").ticks(9).tickFormat(d3.format("d"));
 
     var yAxis = d3.svg.axis().scale(y)
     .orient("left").ticks(5);
@@ -60,15 +62,16 @@
     "translate(" + margin.left + "," + margin.top + ")");
 
     // Get the data
-    d3.csv("static/data.csv", function(error, data) {
+    d3.csv("../static/data.csv", function(error, data) {
     data.forEach(function(d) {
-    d.date = parseDate(d.date);
-    d.close = d.close;
+    console.log(d);
+    <!-- d.date = parseDate(d.date); -->
+    console.log(d.date);
     });
 
     // Scale the range of the data
     x.domain(d3.extent(data, function(d) { return d.date; }));
-    y.domain([0, d3.max(data, function(d) { return d.close; })]);
+    y.domain([0, d3.max(data, function(d) { return d.index; })]);
 
     // Add the valueline path.
     svg.append("path")
