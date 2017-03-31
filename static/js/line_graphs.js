@@ -14,10 +14,10 @@ glob_dev_ctx.transform(1, 0, 0, -1, 0, glob_dev_height);
 
 function drawAxes(ctx, height) {
     ctx.beginPath();
-    ctx.moveTo(100, 100);
-    ctx.lineTo(100, 150);
-    ctx.moveTo(100, 100);
-    ctx.lineTo(150, 100);
+    ctx.moveTo(30, 30);
+    ctx.lineTo(30, 450);
+    ctx.moveTo(30, 30);
+    ctx.lineTo(450, 30);
     // ctx.moveTo(30, ctx.height - 200);
     // ctx.lineTo(30, ctx.height - 150);
     // ctx.moveTo(30, ctx.height - 30);
