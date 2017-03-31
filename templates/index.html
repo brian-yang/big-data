@@ -37,10 +37,12 @@
 
       <!--   <div id="regions_div" style="width: 900px; height: 500px;"></div> -->
 
+      Global Development
+      <div id="geochart-colors" style="width: 500px; height: 433px;"></div><br><br>
+      State Fragility
+        <div id="geochart-fragility" style="width: 500px; height: 433px;"></div>
 
-      <div id="geochart-colors" style="width: 700px; height: 433px;"></div>
-
-   <!--   <div id="chart_div" style="width: 900px; height: 500px;"></div> -->
+   <!--   <div id="chart_div" style="width: 900px; height: 500px;"></div>
 
 
       <canvas class="slate" width="500" height="500" id="state_frag">
@@ -48,6 +50,7 @@
 
       <canvas class="slate" width="500" height="500" id="glob_dev">
       </canvas>
+    -->
     </center>
 
 
@@ -76,39 +79,7 @@
       THERE WOULD BE SOME D3 BAR GRAPHS HERE
     </center>
 
-    <!--
-	<center>
-	  <h2> Legend </h2>
-	  <div class="chart" id="legend"></div>
-	</center>
-
-	<h2>Total Deficit as % of GDP</h2>
-	<div class="chart" id="sd_gdp">
-	</div>
-
-	<h2>Total Deficit</h2>
-	<div class="chart" id="sd">
-	</div>
-
-	<h2>GDP</h2>
-	<div class="chart" id="gdp">
-	</div>
-
-	<h2>Total Revenues</h2>
-	<div class="chart" id="rev">
-	</div>
-
-	<h2>Total Spending</h2>
-	<div class="chart" id="spend">
-	</div>
-
-	<h2>Total Federal Debt as % of GDP</h2>
-	<div class="chart" id="fd_gdp">
-	</div>
-	<h2>Total Federal Debt</h2>
-	<div class="chart" id="fd">
-	</div>
-
+  <!--
 	<script>
 	  google.charts.load('current', {'packages':['geochart']});
 	  google.charts.setOnLoadCallback(drawRegionsMap);
@@ -146,51 +117,21 @@
       var data = google.visualization.arrayToDataTable([
       ['Country',   'Latitude'],
 {% for gd in gd_list %} {{gd | safe}}, {% endfor %}
-/*
-      ['Algeria', 106], ['Angola', -18], ['Benin', 16], ['Botswana', -24],
-      ['Burkina Faso', 112], ['Burundi', -3], ['Cameroon', 13],
-      ['Canary Islands', 28], ['Cape Verde', 15],
-      ['Central African Republic', 4], ['Ceuta', 35], ['Chad', 12],
-      ['Comoros', -12], ['Cote d\'Ivoire', 6],
-      ['Democratic Republic of the Congo', -3], ['Djibouti', 12],
-      ['Egypt', 26], ['Equatorial Guinea', 3], ['Eritrea', 15],
-      ['Ethiopia', 9], ['Gabon', 0], ['Gambia', 13], ['Ghana', 5],
-      ['Guinea', 10], ['Guinea-Bissau', 12], ['Kenya', -1],
-      ['Lesotho', -29], ['Liberia', 6], ['Libya', 32], ['Madagascar', null],
-      ['Madeira', 33], ['Malawi', -14], ['Mali', 12], ['Mauritania', 18],
-      ['Mauritius', -20], ['Mayotte', -13], ['Spain', 115],
-      ['Morocco', 32], ['Mozambique', -25], ['Namibia', -22],
-      ['Niger', 14], ['Nigeria', 8], ['Republic of the Congo', -1],
-      ['Réunion', -21], ['Russia', 60], ['Rwanda', -2], ['Saint Helena', -16],
-      ['São Tomé and Principe', 0], ['Senegal', 15],
-      ['Seychelles', -5], ['Sierra Leone', 8], ['Somalia', 2],
-      ['Sudan', 15], ['South Africa', -30], ['South Sudan', 5],
-      ['Swaziland', -26], ['Tanzania', -6], ['Togo', 6], ['Tunisia', 34],
-      ['Uganda', 1], ['Western Sahara', 25], ['Zambia', -15],
-      ['Zimbabwe', -18] */
+
       ]);
 
 
       var datas = google.visualization.arrayToDataTable([
-      ['City',   'Population', 'Area'],
-  /*    ['Rome',      2761477,    1285.31],
-      ['Milan',     1324110,    181.76],
-      ['Naples',    959574,     117.27],
-      ['Turin',     907563,     130.17],
-      ['Palermo',   655875,     158.9],
-      ['Genoa',     607906,     243.60],
-      ['Bologna',   380181,     140.7],
-      ['Florence',  371282,     102.41],
-      ['Fiumicino', 67370,      213.44],
-      ['Anzio',     52192,      43.43],
-      ['Ciampino',  38262,      11]*/
+  //    ['City',   'Population', 'Area'],
+      ['Country', 'Latitude'],
+      {% for sf in sf_list %} {{sf | safe}}, {% endfor %}
 
       ]);
 
 
       var option = {
       //region: '002', // Africa
-      colorAxis: {colors: ['green', 'yellow','orange', 'red']},
+      colorAxis: {colors: ['red', 'orange', 'yellow', 'green'] },
       backgroundColor: '#81d4fa',
       datalessRegionColor: 'white',
       defaultColor: '#f5f5f5',
@@ -206,41 +147,11 @@
       */
       var chart = new google.visualization.GeoChart(document.getElementById('geochart-colors'));
       chart.draw(data, option);
+
+      var chart2 = new google.visualization.GeoChart(document.getElementById('geochart-fragility'));
+      chart2.draw(datas, option);
       //  chart.draw(datas, options);
       };
-
-
-
-
-      /*
-
-      function drawMarkersMap() {
-      var data = google.visualization.arrayToDataTable([
-      ['City',   'Population', 'Area'],
-
-      ['Rome',      2761477,    1285.31],
-      ['Milan',     1324110,    181.76],
-      ['Naples',    959574,     117.27],
-      ['Turin',     907563,     130.17],
-      ['Palermo',   655875,     158.9],
-      ['Genoa',     607906,     243.60],
-      ['Bologna',   380181,     140.7],
-      ['Florence',  371282,     102.41],
-      ['Fiumicino', 67370,      213.44],
-      ['Anzio',     52192,      43.43],
-      ['Ciampino',  38262,      11]
-      ]);
-
-      var options = {
-      //    region: 'IT',
-      displayMode: 'markers',
-      colorAxis: {colors: ['green', 'blue']}
-      };
-
-      var chart = new google.visualization.GeoChart(document.getElementById('geochart-colors'));
-      chart.draw(data, options);
-      }
-      */
 
 
 
