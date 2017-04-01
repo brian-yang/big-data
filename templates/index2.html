@@ -2,21 +2,6 @@
 <meta charset="utf-8">
 <style>
 
-  body { font: 12px Arial;}
-
-  path {
-  stroke: steelblue;
-  stroke-width: 2;
-  fill: none;
-  }
-
-  .axis path,
-  .axis line {
-  fill: none;
-  stroke: grey;
-  stroke-width: 1;
-  shape-rendering: crispEdges;
-  }
 
 </style>
 <body>
@@ -25,17 +10,20 @@
   <script src="http://d3js.org/d3.v3.min.js"></script>
 
   <script>
-    var country = "Ethiopia";
-    
+    var country = "{{ country }}";
+
     // Set the dimensions of the canvas / graph
-    var margin = {top: 30, right: 20, bottom: 30, left: 50},
+    var margin = {top: 30, right: 20, bottom: 50, left: 60},
     width = 600 - margin.left - margin.right,
     height = 270 - margin.top - margin.bottom;
+
+    // Set the graph labels offsets
+    var label_offset = 50;
 
     // Parse the date / time
     <!-- var parseDate = d3.time.format("%y").parse; -->
     <!-- console.log(parseDate); -->
-    
+
     // Set the ranges
     var x = d3.scale.linear().range([0, width]);
     <!-- var x = d3.time.scale().range([0, width]); -->
@@ -54,7 +42,7 @@
     .y(function(d) { return y(d.index); });
 
     // Adds the svg canvas
-    var svg = d3.select("body")
+    var svg = d3.select("#line_graph")
     .append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
@@ -62,12 +50,15 @@
     .attr("transform",
     "translate(" + margin.left + "," + margin.top + ")");
 
+    <!-- console.log(country); -->
+
     // Get the data
-    d3.json("/linegraphdata/" + country, function(error, data) {
+    d3.json("/linegraphdata/" + country + ".json", function(error, data) {
+    <!-- console.log(data); -->
     data.forEach(function(d) {
-    console.log(d);
+    <!-- console.log(d); -->
     <!-- d.date = parseDate(d.date); -->
-    console.log(d.date);
+    <!-- console.log(d.date); -->
     });
 
     // Scale the range of the data
@@ -90,7 +81,25 @@
     .attr("class", "y axis")
     .call(yAxis);
 
+    // y-axis label
+    svg.append("text")
+    .attr("class", "y label")
+    .attr("text-anchor", "middle")  // this makes it easy to centre the text as the transform is applied to the anchor
+    .attr("transform", "rotate(-90)")  // text is drawn off the screen top left, move down and out and rotate
+    .attr("x", -(height / 2))
+    .attr("y", -label_offset)
+    .text("Value");
+
+    // x-axis label
+    svg.append("text")
+    .attr("class", "x label")
+    .attr("text-anchor", "middle")
+    .attr("x", width / 2)
+    .attr("y", height + label_offset)
+    .text("Year");
+
     });
+
 
   </script>
 </body>

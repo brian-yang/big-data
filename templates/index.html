@@ -6,6 +6,44 @@
     <title>Billionares, State Fragillity, and Global Devolpment</title>
 
     <style>
+      body { font: 12px Arial;}
+
+      #line_graph_development path {
+      stroke: steelblue;
+      stroke-width: 2;
+      fill: none;
+      }
+
+      #line_graph_development {
+      display: inline-block;
+      }
+
+      #line_graph_fragility {
+      display: inline-block;
+      }
+
+      #line_graph_development .axis path,
+      #line_graph_development .axis line {
+      fill: none;
+      stroke: grey;
+      stroke-width: 1;
+      shape-rendering: crispEdges;
+      }
+
+      #line_graph_fragility path {
+      stroke: steelblue;
+      stroke-width: 2;
+      fill: none;
+      }
+
+      #line_graph_fragility .axis path,
+      #line_graph_fragility .axis line {
+      fill: none;
+      stroke: grey;
+      stroke-width: 1;
+      shape-rendering: crispEdges;
+      }
+
       .chart div {
       font: 10px sans-serif;
       background-color: steelblue;
@@ -39,17 +77,15 @@
       Global Development
       <div id="geochart-colors" style="width: 500px; height: 433px;"></div><br><br>
       State Fragility
-        <div id="geochart-fragility" style="width: 500px; height: 433px;"></div>
+      <div id="geochart-fragility" style="width: 500px; height: 433px;"></div>
 
-   <!--   <div id="chart_div" style="width: 900px; height: 500px;"></div>
-
-
-      <canvas class="slate" width="500" height="500" id="state_frag">
-      </canvas>
+      <!--   <div id="chart_div" style="width: 900px; height: 500px;"></div>
+	     2	     <canvas class="slate" width="500" height="500" id="state_frag">
+	     </canvas>
 
       <canvas class="slate" width="500" height="500" id="glob_dev">
       </canvas>
-    -->
+      -->
     </center>
 
 
@@ -66,19 +102,17 @@
          ========================== -->
     <center>
       <h4>Track Devolpment and Stabillty Globally</h4>
-      <canvas class="slate" width="500" height="500" id="line_state_frag">
-      </canvas>
-
-      <canvas class="slate" width="500" height="500" id="line_glob_dev">
-      </canvas>
     </center>
+    <div id="line_graph_development"></div>
+    <hr>
+    <div id="line_graph_fragility"></div>
 
     <center>
       <h5>Bar Graphs</h5>
       THERE WOULD BE SOME D3 BAR GRAPHS HERE
     </center>
 
-  <!--
+    <!--
 	<script>
 	  google.charts.load('current', {'packages':['geochart']});
 	  google.charts.setOnLoadCallback(drawRegionsMap);
@@ -115,13 +149,13 @@
       function drawRegionsMap() {
       var data = google.visualization.arrayToDataTable([
       ['Country',   'Latitude'],
-{% for gd in gd_list %} {{gd | safe}}, {% endfor %}
+      {% for gd in gd_list %} {{gd | safe}}, {% endfor %}
 
       ]);
 
 
       var datas = google.visualization.arrayToDataTable([
-  //    ['City',   'Population', 'Area'],
+      //    ['City',   'Population', 'Area'],
       ['Country', 'Latitude'],
       {% for sf in sf_list %} {{sf | safe}}, {% endfor %}
 
