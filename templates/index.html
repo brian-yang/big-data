@@ -90,22 +90,34 @@
 
 
     <br>
-    <center>
-      <h3>Choose a Country</h3>
-      Country:<br>
-      <input type="text" name="country" value="Choose a country">
-    </center>
     <br>
+    <hr>
 
     <!-- ==========================
 	 These are the line graphs
          ========================== -->
     <center>
-      <h4>Track Devolpment and Stabillty Globally</h4>
+      <h2>Track Devolpment and Stabillty Globally</h2>
+
+      <form action="/" method="POST">
+	Choose a Country:<br/>
+	<select name="country">
+	  <option value="default">Country</option>
+	  {% for country in countries %}
+	  <option value="{{ country }}">{{ country }}</option>
+	  {% endfor %}
+	</select>
+	<input type="submit">
+      </form>
+
+      <h3>Note: The scale on the y-axes changes dynamically based on the country<br/>
+	You may also see that the y-axis may show negative numbers. This is because<br/>
+	the global development graph is based on urban population percent growth.<br/>
+	There may be a negative percent growth.<br/>
+      </h3>
+      <div id="line_graph_development"></div>
+      <div id="line_graph_fragility"></div>
     </center>
-    <div id="line_graph_development"></div>
-    <hr>
-    <div id="line_graph_fragility"></div>
 
     <center>
       <h5>Bar Graphs</h5>
@@ -262,7 +274,13 @@
       makeBars('#fd', "Trillion", info_fd);
       transitionTest('#fd', 10, info_fd);
     </script>
-    <script src="static/js/line_graphs.js"></script>
-
+    {% if line_graph_country != "default" %}
+    <script>
+      var country = "{{ line_graph_country }}";
+    </script>
+    <script src="static/js/line_graph_base.js"></script>
+    <script src="static/js/line_graph_development.js"></script>
+    <script src="static/js/line_graph_fragility.js"></script>
+    {% endif %}
   </body>
 </html>

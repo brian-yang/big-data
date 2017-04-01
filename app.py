@@ -5,9 +5,15 @@ import json
 app = Flask(__name__)
 app.secret_key = 'dogsrcool'
 
+# =============================
+# MAIN
+# =============================
+
 countries_list = ['China', 'India', 'United States', 'Indonesia', 'Brazil', 'Pakistan', 'Nigeria', 'Bangladesh', 'Russia', 'Japan', 'Mexico', 'Philippines', 'Ethiopia', 'Vietnam','Egypt', 'Iran', 'Germany', 'Turkey', 'Thailand', 'France', 'United Kingdom', 'Italy', 'Burma', 'South Africa']
-@app.route('/')
+@app.route('/', methods = ['GET', 'POST'])
 def root():
+    # Map
+
     b_data = billionaires.get_billionaires()
     b_list = []
     gd_list = []
@@ -25,11 +31,17 @@ def root():
         else:
             data = data[0]
         gd_list.append([data['Country'], float(data['Data']['Urban Development']['Urban Population Percent'] )])
-    return render_template("index.html", gd_list=gd_list, sf_list=sf_list)
 
-@app.route('/test/')
-def test():
-    return render_template("index2.html", country = "United States")
+    if "country" in request.form:
+        line_graph_country = request.form["country"]
+    else:
+        line_graph_country = "default"
+
+    return render_template("index.html", gd_list=gd_list, sf_list=sf_list, countries=countries_list, line_graph_country = line_graph_country)
+
+# =============================
+# LINE GRAPH ROUTES
+# =============================
 
 # line graph can only read data from this route if it includes a
 # .json extension at the end of the country name
@@ -43,8 +55,6 @@ def jsonLineGraph(country):
             year = value['Year']
             data.append({'index': percent_growth , 'date': year})
 
-    # return render_template("jsonLineGraph.html", data = json.dumps(data))
-    # return jsonify(data)
     return Response(response = json.dumps(data), status = 200, mimetype='application/json')
 
 @app.route('/linegraphfragility/<country>.json/')
@@ -57,8 +67,6 @@ def jsonLineGraph2(country):
             year = value['Year']
             data.append({'index': sf_index, 'date': year})
 
-    # return render_template("jsonLineGraph.html", data = json.dumps(data))
-    # return jsonify(data)
     return Response(response = json.dumps(data), status = 200, mimetype='application/json')
 
 if __name__ == '__main__':
