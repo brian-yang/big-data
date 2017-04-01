@@ -1,2 +1,20 @@
 felixR -- 2017-03-29 12:00
-  Made the basic html file and framework for the project, 
+-Made the basic html file and framework for the project,
+
+brianY -- 2017-03-29 3:19 PM
+-Created the line graph axes
+
+brianY -- 2017-03-29 5:44 PM
+-Flipped the line graphs upside down
+
+brianY -- 2017-03-30 11:47 PM
+-Tested creating line graphs with d3
+
+brianY -- 2017-03-31 6:56 PM
+-Tweak line graph values
+
+brianY -- 2017-04-01 10:06 PM
+-Display both line graphs on the main page
+
+brianY -- 2017-04-01 11:32 PM
+-Finish line graphs
