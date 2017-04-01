@@ -110,14 +110,23 @@
 	<input type="submit">
       </form>
 
-      <h3>Note: The scale on the y-axes changes dynamically based on the country<br/>
-	You may also see that the y-axis may show negative numbers. This is because<br/>
-	the global development graph is based on urban population percent growth.<br/>
-	There may be a negative percent growth.<br/>
-      </h3>
+      <p>0. The scale on the y-axes and x-axes changes dynamically based on the country.<br/>
+	1. For the global development graph, the y-axis may show negative numbers as it is plotting the urban population percent growth, which may be negative.<br/>
+	2. For the state fragility graph, higher state fragility indices mean that the country is becoming more unstable.<br/>
+	3. There may be a little lag when displaying the line graphs.<br/>
+      </p>
+      </div>
+
+      {% if line_graph_country != "default" %}
+      <h3>Country: {{ line_graph_country }}</h3>
+      <br/>
+      {% endif %}
+
       <div id="line_graph_development"></div>
       <div id="line_graph_fragility"></div>
     </center>
+
+    <hr>
 
     <center>
       <h5>Bar Graphs</h5>

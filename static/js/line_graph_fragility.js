@@ -12,13 +12,17 @@ d3.json("/linegraphfragility/" + country + ".json", function(error, data) {
 
     // Scale the range of the data
     x.domain(d3.extent(data, function(d) { return d.date; }));
-    // y.domain([0, d3.max(data, function(d) { return d.index; })]);
-    y.domain(d3.extent(data, function(d) { return d.index; }));
+    y.domain([0, d3.max(data, function(d) { return d.index; })]);
+    // y.domain(d3.extent(data, function(d) { return d.index; }));
 
     // Add the valueline path.
     svg2.append("path")
 	.attr("class", "line")
 	.attr("d", valueline(data));
+
+    // Add the title
+    svg2.append("g")
+	.attr("class", "title");
 
     // Add the X Axis
     svg2.append("g")
@@ -31,6 +35,14 @@ d3.json("/linegraphfragility/" + country + ".json", function(error, data) {
 	.attr("class", "y axis")
 	.call(yAxis);
 
+    // Title
+    svg2.append("text")
+	.attr("class", "title")
+	.attr("text-anchor", "middle")  // this makes it easy to centre the text as the transform is applied to the anchor
+	.attr("x",  width / 2)
+        .attr("y", -10)
+	.text("State Fragility");
+
     // y-axis label
     svg2.append("text")
 	.attr("class", "y label")
@@ -38,7 +50,7 @@ d3.json("/linegraphfragility/" + country + ".json", function(error, data) {
 	.attr("transform", "rotate(-90)")  // text is drawn off the screen top left, move down and out and rotate
 	.attr("x", -(height / 2))
 	.attr("y", -label_offset)
-	.text("Value");
+	.text("State Fragility Index");
 
     // x-axis label
     svg2.append("text")
