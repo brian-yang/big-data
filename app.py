@@ -9,7 +9,8 @@ app.secret_key = 'dogsrcool'
 # MAIN
 # =============================
 
-countries_list = ['China', 'India', 'United States', 'Indonesia', 'Brazil', 'Pakistan', 'Nigeria', 'Bangladesh', 'Russia', 'Japan', 'Mexico', 'Philippines', 'Ethiopia', 'Vietnam','Egypt', 'Iran', 'Germany', 'Turkey', 'Thailand', 'France', 'United Kingdom', 'Italy', 'Burma', 'South Africa']
+countries_list = ['India', 'China', 'United States', 'Russia', 'Canada', 'Brazil', 'Argentina', 'Colombia', 'Australia', 'South Africa', 'Madagascar', 'Germany']
+countries_list2 = ['IND', 'CHN', 'USA', 'RUS', 'CAN', 'BRA', 'ARG', 'COL', 'AUS', 'ZAF', 'MAD', 'DEU']
 @app.route('/', methods = ['GET', 'POST'])
 def root():
     # Map
@@ -19,25 +20,27 @@ def root():
     gd_list = []
     sf_list = []
     sf_data =  state_fragility.get_scores()
+    used_list = []
     for sf in sf_data:
-        if sf['Country'] in countries_list and sf['Country'] not in sf_list:
-            sf_list.append([sf['Country'], sf['Metrics']['State Fragility Index']])
+        if sf['Country'] in countries_list and sf['Country'] not in used_list:
+            sf_list.append([countries_list2[countries_list.index(sf['Country'])], sf['Metrics']['State Fragility Index']])
+            used_list.append(sf['Country'])
     for billionaire in b_data:
-        b_list.append([billionaire['name'], billionaire['location']['citizenship']])
+        b_list.append([billionaire['name'], billionaire['location']['country code']])
     for country in countries_list:
         data = global_development.get_reports_by_country(country)
         if len(data) <=0:
             continue
         else:
             data = data[0]
-        gd_list.append([data['Country'], float(data['Data']['Urban Development']['Urban Population Percent'] )])
+        gd_list.append([countries_list2[countries_list.index(data['Country'])], float(data['Data']['Urban Development']['Urban Population Percent'] )])
 
     if "country" in request.form:
         line_graph_country = request.form["country"]
     else:
         line_graph_country = "default"
 
-    return render_template("index.html", gd_list=gd_list, sf_list=sf_list, countries=countries_list, line_graph_country = line_graph_country)
+    return render_template("dots.html", gd_list=gd_list, sf_list=sf_list, countries=countries_list, line_graph_country = line_graph_country)
 
 # =============================
 # LINE GRAPH ROUTES

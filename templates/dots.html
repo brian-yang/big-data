@@ -10,8 +10,8 @@
   <p><a href="http://datamaps.github.io/">DataMaps Project Homepage</a></p>
   -->
   <div id="container1" style="position: relative; width: 80%; max-height: 450px;"></div>
- 
-     
+
+
      <script>
        //basic map config with custom fills, mercator projection
       var map = new Datamap({
@@ -26,8 +26,21 @@
        blue: 'blue',
        a: 'rgba(0,244,0,0.9)'
         },
-        
+
        data: {
+
+         {% for country in sf_list %}
+
+         {{country[0] | safe}} : {fillKey:
+           {% if country[1] > 10 %}
+           'a'
+           {% else %}
+           'lt50'
+           {% endif %}
+         } ,
+
+         {% endfor %}
+         /*
        IND: {fillKey: 'blue'},
        CHN: {fillKey: 'a'},
           USA: {fillKey: 'lt50' },
@@ -38,18 +51,19 @@
           COL: {fillKey: 'gt50' },
           AUS: {fillKey: 'gt50' },
           ZAF: {fillKey: 'gt50' },
-          MAD: {fillKey: 'gt50' },       
+          MAD: {fillKey: 'gt50' },
           DEU: {fillKey: 'gt50' }
+          */
        }
       })
-      
-      
+
+
        //bubbles, custom popup on hover template
      map.bubbles([
        {name: 'Hot', latitude: 21.32, longitude: 5.32, radius: 10, fillKey: 'gt50'},
        {name: 'Chilly', latitude: -25.32, longitude: 120.32, radius: 18, fillKey: 'lt50'},
        {name: 'Hot again', latitude: 21.32, longitude: -84.32, radius: 8, fillKey: 'gt50'},
-       {name: '300 Billionares', latitude: 40.7, longitude: -74, radius: 8, fillKey: 'gt50'},
+       {name: '300 Billionares', latitude: 40.7, longitude: -74, radius: 38, fillKey: 'gt50'},
 
      ], {
        popupTemplate: function(geo, data) {
@@ -57,4 +71,51 @@
        }
      });
      </script>
+
+     <center>
+       <h2>Track Devolpment and Stabillty Globally</h2>
+
+       <form action="/" method="POST">
+   Choose a Country:<br/>
+   <select name="country">
+     <option value="default">Country</option>
+     {% for country in countries %}
+     <option value="{{ country }}">{{ country }}</option>
+     {% endfor %}
+   </select>
+   <input type="submit">
+       </form>
+
+       <p>0. The scale on the y-axes and x-axes changes dynamically based on the country.<br/>
+   1. For the global development graph, the y-axis may show negative numbers as it is plotting the urban population percent growth, which may be negative.<br/>
+   2. For the state fragility graph, higher state fragility indices mean that the country is becoming more unstable.<br/>
+   3. There may be a little lag when displaying the line graphs.<br/>
+       </p>
+       </div>
+
+       {% if line_graph_country != "default" %}
+       <h3>Country: {{ line_graph_country }}</h3>
+       <br/>
+       {% endif %}
+
+       <div id="line_graph_development"></div>
+       <div id="line_graph_fragility"></div>
+     </center>
+
+     <hr>
+
+     <center>
+       <h5>Bar Graphs</h5>
+       THERE WOULD BE SOME D3 BAR GRAPHS HERE
+     </center>
+
+     {% if line_graph_country != "default" %}
+     <script>
+       var country = "{{ line_graph_country }}";
+     </script>
+     <script src="static/js/line_graph_base.js"></script>
+     <script src="static/js/line_graph_development.js"></script>
+     <script src="static/js/line_graph_fragility.js"></script>
+     {% endif %}
 </body>
+</html>
