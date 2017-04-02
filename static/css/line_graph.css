@@ -1,0 +1,35 @@
+#line_graph_development path {
+    stroke: steelblue;
+    stroke-width: 2;
+    fill: none;
+}
+
+#line_graph_development {
+    display: inline-block;
+}
+
+#line_graph_fragility {
+    display: inline-block;
+}
+
+#line_graph_development .axis path,
+#line_graph_development .axis line {
+    fill: none;
+    stroke: grey;
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+}
+
+#line_graph_fragility path {
+    stroke: steelblue;
+    stroke-width: 2;
+    fill: none;
+}
+
+#line_graph_fragility .axis path,
+#line_graph_fragility .axis line {
+    fill: none;
+    stroke: grey;
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+}
