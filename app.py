@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, session, redirect, url_for, Response
 from utils import billionaires, global_development, state_fragility
-import json
+import json, urllib2, urllib
 
 app = Flask(__name__)
 app.secret_key = 'dogsrcool'
@@ -8,7 +8,7 @@ app.secret_key = 'dogsrcool'
 # =============================
 # MAIN
 # =============================
-
+key = 'AIzaSyBWmidBiLAZAKmAaEitHqolV6URd_yOsAY'
 countries_list = ['India', 'China', 'United States', 'Russia', 'Canada', 'Brazil', 'Argentina', 'Colombia', 'Australia', 'South Africa', 'Madagascar', 'Germany']
 countries_list2 = ['IND', 'CHN', 'USA', 'RUS', 'CAN', 'BRA', 'ARG', 'COL', 'AUS', 'ZAF', 'MAD', 'DEU']
 @app.route('/', methods = ['GET', 'POST'])
@@ -16,7 +16,8 @@ def root():
     # Map
 
     b_data = billionaires.get_billionaires()
-    b_list = []
+   # print b_data[:5]
+    b_dict = {}
     gd_list = []
     sf_list = []
     sf_data =  state_fragility.get_scores()
@@ -26,7 +27,18 @@ def root():
             sf_list.append([countries_list2[countries_list.index(sf['Country'])], sf['Metrics']['State Fragility Index']])
             used_list.append(sf['Country'])
     for billionaire in b_data:
-        b_list.append([billionaire['name'], billionaire['location']['country code']])
+        nation = billionaire['location']['country code']
+        if nation in countries_list2:
+            location = geo_loc(nation)
+            if nation in b_dict:
+                b_dict[nation][0]+=1
+            else:
+                b_dict[nation] = [0, location]
+    for a in b_dict:
+        print a
+        break
+    ##print "CHINA", b_dict['CHN']
+        #b_list.append([billionaire['name'], billionaire['location']['country code']])
     for country in countries_list:
         data = global_development.get_reports_by_country(country)
         if len(data) <=0:
@@ -40,7 +52,7 @@ def root():
     else:
         line_graph_country = "default"
 
-    return render_template("dots.html", gd_list=gd_list, sf_list=sf_list, countries=countries_list, line_graph_country = line_graph_country)
+    return render_template("dots.html", gd_list=gd_list, sf_list=sf_list, b_dict=b_dict, countries=countries_list, line_graph_country = line_graph_country)
 
 # =============================
 # LINE GRAPH ROUTES
@@ -71,6 +83,24 @@ def jsonLineGraph2(country):
             data.append({'index': sf_index, 'date': year})
 
     return Response(response = json.dumps(data), status = 200, mimetype='application/json')
+
+
+
+def geo_loc(location):
+#finds the longitude and latitude of a given location parameter using Google's Geocode API
+#return format is a dictionary with longitude and latitude as keys
+        loc = urllib.quote_plus(location)
+        googleurl = "https://maps.googleapis.com/maps/api/geocode/json?address=%s&key=%s" % (loc,key)
+        request = urllib2.urlopen(googleurl)
+        results = request.read()
+        gd = json.loads(results) #dictionary
+        if gd['status'] != "OK":
+                return location+" is a bogus location! What are you thinking?"
+        else:
+                result_dic = gd['results'][0] #dictionary which is the first element in the results list
+                geometry = result_dic['geometry'] #geometry is another dictionary
+                loc = geometry['location'] #yet another dictionary
+                return loc
 
 if __name__ == '__main__':
     app.debug=True
