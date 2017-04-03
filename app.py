@@ -66,9 +66,12 @@ def jsonLineGraph(country):
 
     for value in global_development.get_reports():
         if country == value['Country']:
-            percent_growth = (round(value['Data']['Urban Development']['Urban Population Percent Growth'] * 10)) / 10
+            telephone_lines = round(value['Data']['Infrastructure']['Telephone Lines per 100 People'], 3)
+            cell_subscriptions = round(value['Data']['Infrastructure']['Mobile Cellular Subscriptions per 100 People'], 3)
+            life_expectancy = round(value['Data']['Health']['Life Expectancy at Birth, Total'], 3)
+            measure_growth = round((cell_subscriptions + telephone_lines) * life_expectancy)
             year = value['Year']
-            data.append({'index': percent_growth , 'date': year})
+            data.append({'index': measure_growth , 'date': year})
 
     return Response(response = json.dumps(data), status = 200, mimetype='application/json')
 
@@ -84,7 +87,9 @@ def jsonLineGraph2(country):
 
     return Response(response = json.dumps(data), status = 200, mimetype='application/json')
 
-
+# =============================
+# MAP
+# =============================
 
 def geo_loc(location):
 #finds the longitude and latitude of a given location parameter using Google's Geocode API

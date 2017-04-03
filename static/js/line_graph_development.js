@@ -8,7 +8,7 @@ var svg = d3.select("#line_graph_development")
 
 // Get the data
 d3.json("/linegraphdevelopment/" + country + ".json", function(error, data) {
-
+    
     // Scale the range of the data
     x.domain(d3.extent(data, function(d) { return d.date; }));
     // y.domain([0, d3.max(data, function(d) { return d.index; })]);
@@ -49,7 +49,7 @@ d3.json("/linegraphdevelopment/" + country + ".json", function(error, data) {
 	.attr("transform", "rotate(-90)")  // text is drawn off the screen top left, move down and out and rotate
 	.attr("x", -(height / 2))
 	.attr("y", -label_offset)
-	.text("Urban Population Percent Growth");
+	.text("Measure of Global Development");
 
     // x-axis label
     svg.append("text")
@@ -58,4 +58,17 @@ d3.json("/linegraphdevelopment/" + country + ".json", function(error, data) {
 	.attr("x", width / 2)
 	.attr("y", height + label_offset)
 	.text("Year");
+
+    // Note for missing data
+    if (country === "Russia") {
+	svg.append("g")
+	    .attr("class", "n/a");
+
+	svg.append("text")
+	    .attr("class", "n/a")
+	    .attr("text-anchor", "middle")
+	    .attr("x", width / 2)
+	    .attr("y", height / 2)
+	    .text("Data not available");	
+    }
 });
