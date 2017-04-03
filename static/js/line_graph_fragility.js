@@ -8,15 +8,16 @@ var svg2 = d3.select("#line_graph_fragility")
 	  "translate(" + margin.left + "," + margin.top + ")");
 
 // Get the data
-d3.json("/linegraphfragility/" + country + ".json", function(error, data) {
+d3.json("/line/fragility/" + country + ".json", function(error, data) {
 
     // Scale the range of the data
     x.domain(d3.extent(data, function(d) { return d.date; }));
-    if (country === "Canada") {
-	y.domain([-0.5, 0.5]);
-    } else {
-	y.domain([0, d3.max(data, function(d) { return d.index; })]);
-    }
+    y.domain([-0.5, d3.max(data, function(d) { return d.index; })]);
+    // if (country === "Canada") {
+    // 	y.domain([-0.5, 0.5]);
+    // } else {
+    // 	y.domain([0, d3.max(data, function(d) { return d.index; })]);
+    // }
     // y.domain(d3.extent(data, function(d) { return d.index; }));
 
     // Add the valueline path.

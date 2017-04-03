@@ -60,8 +60,8 @@ def root():
 
 # line graph can only read data from this route if it includes a
 # .json extension at the end of the country name
-@app.route('/linegraphdevelopment/<country>.json/')
-def jsonLineGraph(country):
+@app.route('/line/development/<country>.json/')
+def development(country):
     data = []
 
     for value in global_development.get_reports():
@@ -69,14 +69,15 @@ def jsonLineGraph(country):
             telephone_lines = round(value['Data']['Infrastructure']['Telephone Lines per 100 People'], 3)
             cell_subscriptions = round(value['Data']['Infrastructure']['Mobile Cellular Subscriptions per 100 People'], 3)
             life_expectancy = round(value['Data']['Health']['Life Expectancy at Birth, Total'], 3)
+
             measure_growth = round((cell_subscriptions + telephone_lines) * life_expectancy)
             year = value['Year']
             data.append({'index': measure_growth , 'date': year})
 
     return Response(response = json.dumps(data), status = 200, mimetype='application/json')
 
-@app.route('/linegraphfragility/<country>.json/')
-def jsonLineGraph2(country):
+@app.route('/line/fragility/<country>.json/')
+def fragility(country):
     data = []
 
     for value in state_fragility.get_scores():

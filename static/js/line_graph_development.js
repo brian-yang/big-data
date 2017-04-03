@@ -7,7 +7,7 @@ var svg = d3.select("#line_graph_development")
 	  "translate(" + margin.left + "," + margin.top + ")");
 
 // Get the data
-d3.json("/linegraphdevelopment/" + country + ".json", function(error, data) {
+d3.json("/line/development/" + country + ".json", function(error, data) {
     
     // Scale the range of the data
     x.domain(d3.extent(data, function(d) { return d.date; }));
