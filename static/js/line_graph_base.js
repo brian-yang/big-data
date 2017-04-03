@@ -1,10 +1,7 @@
 // Set the dimensions of the canvas / graph
-var margin = {top: 30, right: 20, bottom: 50, left: 80},
+var margin = {top: 30, right: 20, bottom: 50, left: 100},
 width = 600 - margin.left - margin.right,
 height = 270 - margin.top - margin.bottom;
-
-// Set the graph labels offsets
-var label_offset = 50;
 
 // Set the ranges
 var x = d3.scale.linear().range([0, width]);

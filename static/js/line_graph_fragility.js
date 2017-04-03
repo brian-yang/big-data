@@ -7,18 +7,23 @@ var svg2 = d3.select("#line_graph_fragility")
     .attr("transform",
 	  "translate(" + margin.left + "," + margin.top + ")");
 
+svg2.append("g")
+    .attr("class", "load");
+
+var load2 = svg2.append("text")
+    .attr("class", "load")
+    .attr("text-anchor", "middle")  // this makes it easy to centre the text as the transform is applied to the anchor
+    .attr("x",  width / 2)
+    .attr("y",  height / 2)
+    .text("Loading...");
+
 // Get the data
 d3.json("/line/fragility/" + country + ".json", function(error, data) {
+    load2.text("");
 
     // Scale the range of the data
     x.domain(d3.extent(data, function(d) { return d.date; }));
     y.domain([-0.5, d3.max(data, function(d) { return d.index; })]);
-    // if (country === "Canada") {
-    // 	y.domain([-0.5, 0.5]);
-    // } else {
-    // 	y.domain([0, d3.max(data, function(d) { return d.index; })]);
-    // }
-    // y.domain(d3.extent(data, function(d) { return d.index; }));
 
     // Add the valueline path.
     svg2.append("path")
@@ -54,7 +59,7 @@ d3.json("/line/fragility/" + country + ".json", function(error, data) {
 	.attr("text-anchor", "middle")  // this makes it easy to centre the text as the transform is applied to the anchor
 	.attr("transform", "rotate(-90)")  // text is drawn off the screen top left, move down and out and rotate
 	.attr("x", -(height / 2))
-	.attr("y", -label_offset)
+	.attr("y", -50)
 	.text("State Fragility Index");
 
     // x-axis label
@@ -62,6 +67,6 @@ d3.json("/line/fragility/" + country + ".json", function(error, data) {
 	.attr("class", "x label")
 	.attr("text-anchor", "middle")
 	.attr("x", width / 2)
-	.attr("y", height + label_offset)
+	.attr("y", height + 50)
 	.text("Year");
 });

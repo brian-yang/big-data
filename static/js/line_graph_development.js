@@ -6,8 +6,19 @@ var svg = d3.select("#line_graph_development")
     .attr("transform",
 	  "translate(" + margin.left + "," + margin.top + ")");
 
+svg.append("g")
+    .attr("class", "load");
+
+var load = svg.append("text")
+    .attr("class", "load")
+    .attr("text-anchor", "middle")  // this makes it easy to centre the text as the transform is applied to the anchor
+    .attr("x",  width / 2)
+    .attr("y",  height / 2)
+    .text("Loading...");
+
 // Get the data
 d3.json("/line/development/" + country + ".json", function(error, data) {
+    load.text("");
     
     // Scale the range of the data
     x.domain(d3.extent(data, function(d) { return d.date; }));
@@ -48,7 +59,7 @@ d3.json("/line/development/" + country + ".json", function(error, data) {
 	.attr("text-anchor", "middle")  // this makes it easy to centre the text as the transform is applied to the anchor
 	.attr("transform", "rotate(-90)")  // text is drawn off the screen top left, move down and out and rotate
 	.attr("x", -(height / 2))
-	.attr("y", -label_offset)
+	.attr("y", -70)
 	.text("Measure of Global Development");
 
     // x-axis label
@@ -56,7 +67,7 @@ d3.json("/line/development/" + country + ".json", function(error, data) {
 	.attr("class", "x label")
 	.attr("text-anchor", "middle")
 	.attr("x", width / 2)
-	.attr("y", height + label_offset)
+	.attr("y", height + 50)
 	.text("Year");
 
     // Note for missing data
