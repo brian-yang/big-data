@@ -43,7 +43,7 @@
     {% elif country[1] > 10  %}
     'orange'
     {% else %}
-    a
+    'green'
     {% endif %}
     } ,
 
@@ -71,7 +71,7 @@
 {% for key, value in b_dict.iteritems() %}
     {
     //  name: value[0].toString(), latitude: 21.32, longitude: 5.32, radius: 10, fillKey: 'gt50'
-      name: {{value[0] | string}}, latitude: {{value[1]}}, longitude: {{value[2]}}, radius: {{value[0]}}, fillkey:'gt50'
+      name: {{value[0] | string}}, latitude: {{value[1]}}, longitude: {{value[2]}}, radius: Math.sqrt({{value[0] | int}}), fillkey:'gt50'
     },
 {% endfor %}
   /*  {name: 'Hot', latitude: 21.32, longitude: 5.32, radius: 10, fillKey: 'gt50'},
