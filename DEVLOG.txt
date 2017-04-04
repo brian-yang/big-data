@@ -18,3 +18,5 @@ brianY -- 2017-04-01 10:06 PM
 
 brianY -- 2017-04-01 11:32 PM
 -Finish line graphs
+kathyL -- 2017-04-04 12:11 AM
+-Fixed maps, added circles to represent billionaires

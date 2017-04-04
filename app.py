@@ -8,12 +8,12 @@ app.secret_key = 'dogsrcool'
 # =============================
 # MAIN
 # =============================
-countries_list = ['India', 'China', 'United States', 'Russia', 'Canada', 'Brazil', 'Argentina', 'Colombia', 'Australia', 'South Africa', 'Madagascar', 'Germany']
-countries_list2 = ['IND', 'CHN', 'USA', 'RUS', 'CAN', 'BRA', 'ARG', 'COL', 'AUS', 'ZAF', 'MAD', 'DEU']
+countries_list = ['India', 'China', 'United States', 'Russia', 'Canada', 'Brazil', 'Argentina', 'Colombia', 'Australia', 'South Africa', 'Madagascar', 'Germany', 'Saudi Arabia']
+countries_list2 = ['IND', 'CHN', 'USA', 'RUS', 'CAN', 'BRA', 'ARG', 'COL', 'AUS', 'ZAF', 'MAD', 'DEU', 'SAU']
 
 @app.route('/', methods = ['GET', 'POST'])
 def root():
-    b_data = billionaires.get_billionaires()
+    b_data = billionaires.get_billionaires()[:300]
     sf_data =  state_fragility.get_scores()
 
     b_dict = {}
@@ -27,22 +27,21 @@ def root():
             used_list.append(sf['Country'])
 
     # BROKEN
-    # for billionaire in b_data:
-    #     nation = billionaire['location']['country Code']
-    #     if nation in countries_list2:
-    #         location = geo_loc(nation)
-    #         if nation in b_dict:
-    #             b_dict[nation][0]+=1
-    #         else:
-    #             b_dict[nation] = [0, location]
-
-    # for a in b_dict:
-    #     print a
-    #     break
+    for billionaire in b_data:
+        nation = billionaire['location']['country code']
+        if nation in countries_list2:
+            location = geo_loc(billionaire['location']['citizenship'])
+            if nation in b_dict:
+                b_dict[nation][0]+=1
+            else:
+                b_dict[nation] = [1, location['lat'], location['lng']]
+    #for a in b_dict:
+    #    print a
+    #    break
 
     # BROKEN - don't know what this does
-    # print "CHINA", b_dict['CHN']
-    # b_list.append([billionaire['name'], billionaire['location']['country code']])
+    #print "CHINA", b_dict['CHN']
+    ##b_list.append([billionaire['name'], billionaire['location']['country code']])
     
     for country in countries_list:
         data = global_development.get_reports_by_country(country)
@@ -57,7 +56,7 @@ def root():
     else:
         line_graph_country = "default"
 
-    return render_template("dots.html", gd_list=gd_list, sf_list=sf_list, countries=countries_list, line_graph_country = line_graph_country)
+    return render_template("dots.html", gd_list=gd_list, sf_list=sf_list, b_dict=b_dict, countries=countries_list, line_graph_country = line_graph_country)
 
 # =============================
 # LINE GRAPH ROUTES
@@ -96,7 +95,7 @@ def fragility(country):
 # =============================
 # MAP
 # =============================
-key = 'AIzaSyBWmidBiLAZAKmAaEitHqolV6URd_yOsAY'
+key = 'AIzaSyCP2d8OLc6VqBzZ8OMTMzR9JnbAZHFN0SI'
 
 def geo_loc(location):
 #finds the longitude and latitude of a given location parameter using Google's Geocode API
