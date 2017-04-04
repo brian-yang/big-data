@@ -14,6 +14,9 @@ We will have two maps, one showing the state fragility of countries/regions arou
 There will also be two line graphs, showing the state fragility and global development of selected countries over time. Lastly, there will be a bar graph showing the state fragility/global development status of multiple countries over time.
 
 ## Data Source
-https://think.cs.vt.edu/corgis/csv/billionaires/billionaires.html 
-https://think.cs.vt.edu/corgis/csv/global_development/global_development.html
-https://think.cs.vt.edu/corgis/csv/state_fragility/state_fragility.html
+Billionares Data Set: https://think.cs.vt.edu/corgis/csv/billionaires/billionaires.html 
+<br>
+Global Devolpment Data Set: https://think.cs.vt.edu/corgis/csv/global_development/global_development.html
+<br>
+State Fragillity Data Set: https://think.cs.vt.edu/corgis/csv/state_fragility/state_fragility.html
+<br>

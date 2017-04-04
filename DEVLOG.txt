@@ -13,6 +13,11 @@ brianY -- 2017-03-30 11:47 PM
 brianY -- 2017-03-31 6:56 PM
 -Tweak line graph values
 
+felixR -- 2017-04-01 7:43 PM
+-Got the new map to work
+-The new html file is now dots.html, no longer index.html
+-Dots.html now uses the new map that supports dots and color change
+
 brianY -- 2017-04-01 10:06 PM
 -Display both line graphs on the main page
 
@@ -24,3 +29,6 @@ kathyL -- 2017-04-04 12:11 AM
 
 kathyL -- 2017-04-04 12:25 PM
 -added countries from felix's parsing, added color scheme
+
+felixR -- 2017-04-04 3:48 PM
+-worked on bar garphs
