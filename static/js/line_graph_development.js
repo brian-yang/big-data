@@ -60,7 +60,7 @@ d3.json("/line/development/" + country + ".json", function(error, data) {
 	.attr("transform", "rotate(-90)")  // text is drawn off the screen top left, move down and out and rotate
 	.attr("x", -(height / 2))
 	.attr("y", -70)
-	.text("Measure of Global Development");
+	.text("Global Development Score");
 
     // x-axis label
     svg.append("text")
