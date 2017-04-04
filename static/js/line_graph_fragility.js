@@ -21,15 +21,32 @@ var load2 = svg2.append("text")
 d3.json("/line/fragility/" + country + ".json", function(error, data) {
     load2.text("");
 
-    // Scale the range of the data
-    x.domain(d3.extent(data, function(d) { return d.date; }));
-    y.domain([-0.5, d3.max(data, function(d) { return d.index; })]);
+    if (data.length <= 0) {
+	console.log("ok");
+	svg2.append("g")
+	    .attr("class", "n/a");
 
-    // Add the valueline path.
-    svg2.append("path")
-	.attr("class", "line")
-	.attr("d", valueline(data));
+	svg2.append("text")
+	    .attr("class", "n/a")
+	    .attr("text-anchor", "middle")
+	    .attr("x", width / 2)
+	    .attr("y", height / 2)
+	    .text("Data not available");	
 
+	// Scale the range of the data
+	x.domain([0, 1]);
+	y.domain([0, 1]);
+    } else {	
+	// Scale the range of the data
+	x.domain(d3.extent(data, function(d) { return d.date; }));
+	y.domain([-0.5, d3.max(data, function(d) { return d.index; })]);
+
+	// Add the valueline path.
+	svg2.append("path")
+	    .attr("class", "line")
+	    .attr("d", valueline(data));
+    }
+    
     // Add the title
     svg2.append("g")
 	.attr("class", "title");
@@ -60,7 +77,7 @@ d3.json("/line/fragility/" + country + ".json", function(error, data) {
 	.attr("transform", "rotate(-90)")  // text is drawn off the screen top left, move down and out and rotate
 	.attr("x", -(height / 2))
 	.attr("y", -50)
-	.text("State Fragility Index");
+	.text("State Fragility Score");
 
     // x-axis label
     svg2.append("text")

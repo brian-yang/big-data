@@ -22,21 +22,21 @@ def root():
     sf_list = []
     used_list = []
 
-    for sf in sf_data:
-        if sf['Country'] in countries_list and sf['Country'] not in used_list:
-            sf_list.append([countries_list2[countries_list.index(sf['Country'])], sf['Metrics']['State Fragility Index']])
-            used_list.append(sf['Country'])
+    # for sf in sf_data:
+    #     if sf['Country'] in countries_list and sf['Country'] not in used_list:
+    #         sf_list.append([countries_list2[countries_list.index(sf['Country'])], sf['Metrics']['State Fragility Index']])
+    #         used_list.append(sf['Country'])
 
-    # BROKEN
-    for billionaire in b_data:
-        nation = billionaire['location']['country code']
-        if nation in countries_list2:
-            location = geo_loc(billionaire['location']['citizenship'])
-            #print location
-            if nation in b_dict:
-                b_dict[nation][0]+=1
-            else:
-                b_dict[nation] = [1, location['lat'], location['lng']]
+    # # BROKEN
+    # for billionaire in b_data:
+    #     nation = billionaire['location']['country code']
+    #     if nation in countries_list2:
+    #         location = geo_loc(billionaire['location']['citizenship'])
+    #         #print location
+    #         if nation in b_dict:
+    #             b_dict[nation][0]+=1
+    #         else:
+    #             b_dict[nation] = [1, location['lat'], location['lng']]
     #for a in b_dict:
     #    print a
     #    break
@@ -45,13 +45,13 @@ def root():
     #print "CHINA", b_dict['CHN']
     ##b_list.append([billionaire['name'], billionaire['location']['country code']])
 
-    for country in countries_list:
-        data = global_development.get_reports_by_country(country)
-        if len(data) <=0:
-            continue
-        else:
-            data = data[0]
-        gd_list.append([countries_list2[countries_list.index(data['Country'])], float(data['Data']['Urban Development']['Urban Population Percent'] )])
+    # for country in countries_list:
+    #     data = global_development.get_reports_by_country(country)
+    #     if len(data) <=0:
+    #         continue
+    #     else:
+    #         data = data[0]
+    #     gd_list.append([countries_list2[countries_list.index(data['Country'])], float(data['Data']['Urban Development']['Urban Population Percent'] )])
 
     if "country" in request.form:
         line_graph_country = request.form["country"]

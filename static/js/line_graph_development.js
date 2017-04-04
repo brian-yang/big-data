@@ -19,17 +19,36 @@ var load = svg.append("text")
 // Get the data
 d3.json("/line/development/" + country + ".json", function(error, data) {
     load.text("");
+
+    // Note for missing data
+    if (data.length <= 0) {
+	console.log("ok");
+	svg.append("g")
+	    .attr("class", "n/a");
+
+	svg.append("text")
+	    .attr("class", "n/a")
+	    .attr("text-anchor", "middle")
+	    .attr("x", width / 2)
+	    .attr("y", height / 2)
+	    .text("Data not available");
+
+	// Scale the range of the data
+	x.domain([0, 1]);
+	y.domain([0, 1]);
+
+    } else {
+	// Scale the range of the data
+	x.domain(d3.extent(data, function(d) { return d.date; }));
+	// y.domain([0, d3.max(data, function(d) { return d.index; })]);
+	y.domain(d3.extent(data, function(d) { return d.index; }));
+
+	// Add the valueline path.
+	svg.append("path")
+	    .attr("class", "line")
+	    .attr("d", valueline(data));
+    }
     
-    // Scale the range of the data
-    x.domain(d3.extent(data, function(d) { return d.date; }));
-    // y.domain([0, d3.max(data, function(d) { return d.index; })]);
-    y.domain(d3.extent(data, function(d) { return d.index; }));
-
-    // Add the valueline path.
-    svg.append("path")
-	.attr("class", "line")
-	.attr("d", valueline(data));
-
     // Add the title
     svg.append("g")
 	.attr("class", "title");
@@ -69,17 +88,4 @@ d3.json("/line/development/" + country + ".json", function(error, data) {
 	.attr("x", width / 2)
 	.attr("y", height + 50)
 	.text("Year");
-
-    // Note for missing data
-    if (country === "Russia") {
-	svg.append("g")
-	    .attr("class", "n/a");
-
-	svg.append("text")
-	    .attr("class", "n/a")
-	    .attr("text-anchor", "middle")
-	    .attr("x", width / 2)
-	    .attr("y", height / 2)
-	    .text("Data not available");	
-    }
 });
