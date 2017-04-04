@@ -15,5 +15,6 @@ There will also be two line graphs, showing the state fragility and global devel
 
 ## Data Source
 https://think.cs.vt.edu/corgis/csv/billionaires/billionaires.html 
+<br>
 https://think.cs.vt.edu/corgis/csv/global_development/global_development.html
 https://think.cs.vt.edu/corgis/csv/state_fragility/state_fragility.html
