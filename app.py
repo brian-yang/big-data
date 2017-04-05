@@ -19,17 +19,11 @@ countries_list =  ["Aruba", "Afghanistan", "Angola", "Anguilla", "Aland Islands"
 
 @app.route('/', methods = ['GET', 'POST'])
 def root():
-
-
     if "country" in request.form:
         line_graph_country = request.form["country"]
     else:
         line_graph_country = "default"
 
-    for i in frag:
-        if i[2]=='USA':
-            print i
-            break
     return render_template("dots.html", gd_list=dev, sf_list=frag, b_list=bill, countries=countries_list, line_graph_country = line_graph_country)
 
 # =============================
