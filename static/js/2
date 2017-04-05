@@ -1,0 +1,39 @@
+var svg4 = d3.select("#frag"),
+    margin4 = {top: 20, right: 20, bottom: 30, left: 40},
+    width4 = +svg4.attr("width") - margin4.left - margin4.right,
+    height4 = +svg4.attr("height") - margin4.top - margin4.bottom;
+
+var x = d3.scaleBand().rangeRound([0, width]).padding(0.1),
+    y = d3.scaleLinear().rangeRound([height, 0]);
+
+var g4 = svg.append("g")
+    .attr("transform", "translate(" + margin4.left + "," + margin4.top + ")");
+
+d3.json("/line/fragility/" + country + ".json", function(error, data) {
+    x.domain(data.map(function(d) { return d.year; }));
+    y.domain([0, d3.max(data, function(d) { return d.index; })]);
+
+    g.append("g")
+	.attr("class", "axis axis--x")
+	.attr("transform", "translate(0," + height + ")")
+	.call(xAxis);
+
+    g.append("g")
+	.attr("class", "axis axis--y")
+	.call(yAxis)
+	.append("text")
+	.attr("transform", "rotate(-90)")
+	.attr("y", 6)
+	.attr("dy", "0.71em")
+	.attr("text-anchor", "end")
+	.text("State Fragility Score");
+
+    g.selectAll(".bar")
+	.data(data)
+	.enter().append("rect")
+	.attr("class", "bar")
+	.attr("x", function(d) { return x(d.year); })
+	.attr("y", function(d) { return y(d.index); })
+	.attr("width", x.bandwidth())
+	.attr("height", function(d) { return height - y(d.index); });
+});
