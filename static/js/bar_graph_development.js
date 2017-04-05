@@ -3,7 +3,7 @@
 d3.json("/line/development/" + country + ".json", function(error, data) {
     x.domain(d3.extent(data, function(d) { return d.date; }));
     y.domain([0, d3.max(data, function(d) { return d.index; })]);
-  var svg2 = d3.select("#bar_graph_fragility");
+  var svg2 = d3.select("#bar_graph_development");
   var svg3 = svg2.append('svg')    
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
