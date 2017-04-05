@@ -1,75 +1,83 @@
-// Adds the svg canvas
-// Get the data
-d3.json("/line/fragility/" + country + ".json", function(error, data) {
-    x.domain(d3.extent(data, function(d) { return d.date; }));
-    y.domain([0, d3.max(data, function(d) { return d.index; })]);
-  var svg2 = d3.select("#bar_graph_fragility");
-  var svg3 = svg2.append('svg')    
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
+var margin4 = {top: 20, right: 20, bottom: 70, left: 80},
+width4 = 600 - margin4.left - margin4.right - 20,
+height4 = 300 - margin4.top - margin4.bottom - 20;
+
+var x4 = d3.scale.ordinal().rangeRoundBands([0, width], .05);
+var y4 = d3.scale.linear().range([height, 0]);
+
+var xAxis4 = d3.svg.axis()
+    .scale(x4)
+    .orient("bottom")
+    .ticks(5);
+
+var yAxis4 = d3.svg.axis()
+    .scale(y4)
+    .orient("left")
+    .ticks(10);
+
+var svg4 = d3.select("#frag").append("svg")
+    .attr("width", width4 + margin4.left + margin4.right)
+    .attr("height", height4 + margin4.top + margin4.bottom)
     .append("g")
     .attr("transform",
-	  "translate(" + margin.left + "," + margin.top + ")");
-   svg3.append("g")
-	.attr("class", "title");
-  
-    
-    // Add the X Axis
-    svg3.append("g")
+	  "translate(" + margin4.left + "," + margin4.top + ")");
+
+svg4.append("g")
+    .attr("class", "load");
+
+var load4 = svg4.append("text")
+    .attr("class", "load")
+    .attr("text-anchor", "middle")  // this makes it easy to centre the text as the transform is applied to the anchor
+    .attr("x",  width4 / 2)
+    .attr("y",  height4 / 2)
+    .text("Loading...");
+
+d3.json("/line/fragility/" + country + ".json", function(error, data) {
+    load4.text("");
+
+    if (data.length <= 0) {
+	svg4.append("g")
+	    .attr("class", "n/a");
+
+	svg4.append("text")
+	    .attr("class", "n/a")
+	    .attr("text-anchor", "middle")
+	    .attr("x", width4 / 2)
+	    .attr("y", height4 / 2)
+	    .text("Data not available");
+    } else {
+	x4.domain(data.map(function(d) { return d.date; }));
+	y4.domain([-0.5, d3.max(data, function(d) { return d.index; })]);
+
+	svg4.selectAll("bar")
+	    .data(data)
+	    .enter().append("rect")
+	    .style("fill", "steelblue")
+	    .attr("x", function(d) { return x4(d.date); })
+	    .attr("width", x4.rangeBand())
+	    .attr("y", function(d) { return y4(d.index); })
+	    .attr("height", function(d) { return height4 - y4(d.index); });
+    }
+
+
+    svg4.append("g")
 	.attr("class", "x axis")
-	.attr("transform", "translate(0," + height + ")")
-	.call(xAxis);
+	.attr("transform", "translate(0," + height4 + ")")
+	.call(xAxis4)
+	.selectAll("text")
+	.style("text-anchor", "end")
+	.attr("dx", "-.8em")
+	.attr("dy", "-.55em")
+	.attr("transform", "rotate(-90)" )
 
-    // Add the Y Axis
-    svg3.append("g")
-	.attr("class", "y axis")
-	.call(yAxis);
-
-    // Title
-    svg3.append("text")
-	.attr("class", "title")
-	.attr("text-anchor", "middle")  // this makes it easy to centre the text as the transform is applied to the anchor
-	.attr("x",  width / 2)
-        .attr("y", -10)
-	.text("State Fragility");
-
-    // y-axis label
-    svg3.append("text")
-	.attr("class", "y label")
-	.attr("text-anchor", "middle")  // this makes it easy to centre the text as the transform is applied to the anchor
-	.attr("transform", "rotate(-90)")  // text is drawn off the screen top left, move down and out and rotate
-	.attr("x", -(height / 2))
-	.attr("y", -label_offset)
-	.text("State Fragility Index");
-
-    // x-axis label
-    svg3.append("text")
-	.attr("class", "x label")
-	.attr("text-anchor", "middle")
-	.attr("x", width / 2)
-	.attr("y", height + label_offset)
-	.text("Year");
-
-
-  var bar = svg3.selectAll('rect');
-  var barUpdate = bar.data(data);
-  //var barText = barUpdate.enter().append('div');
-  //barEnter.text(function(d) { return d.year; });
-  var barEnter = barUpdate.enter().append('rect');
-    barEnter.attr("x", function(d, i) {
-    return i * 21;  //Bar width of 20 plus 1 for padding
-});
-
-    
-    barEnter.attr("y", 0);
-    barEnter.attr("width",20);
-    //barEnter.attr("transform", "rotate(180)")
-   barEnter.attr("height", function(d) { return d.index*5 + "px"})
-   // .attr("transform", "rotate(180)")
-   //.attr("transform", "translate(0," + (svg3.style.height - barEnter.style.height) + ")");
-   barEnter.text(function(d) { return d.index; });
-    alert('hei');
-    console.log(svg3.style.height);
-    
-    
+    svg4.append("g")
+    	.attr("class", "y axis")
+    	.call(yAxis4)
+    	.append("text")
+    	.attr("transform", "rotate(-90)")
+    	.attr("y", -50)
+    	.attr("dy", ".71em")
+        .attr("x", -35)
+    	.style("text-anchor", "end")
+    	.text("State Fragility Score");
 });
