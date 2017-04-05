@@ -9,7 +9,7 @@ var svg = d3.select("#line_graph_development")
 svg.append("g")
     .attr("class", "load");
 
-var load = svg.append("text")
+var load1 = svg.append("text")
     .attr("class", "load")
     .attr("text-anchor", "middle")  // this makes it easy to centre the text as the transform is applied to the anchor
     .attr("x",  width / 2)
@@ -18,11 +18,10 @@ var load = svg.append("text")
 
 // Get the data
 d3.json("/line/development/" + country + ".json", function(error, data) {
-    load.text("");
+    load1.text("");
 
     // Note for missing data
     if (data.length <= 0) {
-	console.log("ok");
 	svg.append("g")
 	    .attr("class", "n/a");
 
@@ -48,7 +47,7 @@ d3.json("/line/development/" + country + ".json", function(error, data) {
 	    .attr("class", "line")
 	    .attr("d", valueline(data));
     }
-    
+
     // Add the title
     svg.append("g")
 	.attr("class", "title");

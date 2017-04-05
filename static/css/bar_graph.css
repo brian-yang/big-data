@@ -1,0 +1,21 @@
+#dev .axis {
+    font: 10px sans-serif;
+}
+
+#dev .axis path,
+#dev .axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+}
+
+#frag .axis {
+    font: 10px sans-serif;
+}
+
+#frag .axis path,
+#frag .axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+}
