@@ -32,3 +32,6 @@ kathyL -- 2017-04-04 12:25 PM
 
 felixR -- 2017-04-04 3:48 PM
 -worked on bar garphs
+
+kathyL -- 2017-04-04 11:30 PM
+--finished putting the data in an sql, much faster queue time

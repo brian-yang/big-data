@@ -29,7 +29,7 @@
     defaultFill: '#f0af0a',
     gt50: 'rgb(255,0,0)',
     yellow: 'rgb(255,215,0)',
-    orange: 'rgb(255,140,0)',
+    orange: 'rgb(255, 102, 0)',
     green: 'rgba(0,244,0,0.9)'
     },
 
@@ -38,11 +38,11 @@
     {% for country in sf_list %}
 
     {{country[2] | string}} : {fillKey:
-    {% if country[3] < 5 %}
+    {% if country[3] < 7 %}
     'green'
-    {% elif country[3] < 10  %}
+    {% elif country[3] < 13  %}
     'yellow'
-    {% elif country[3] < 10  %}
+    {% elif country[3] < 18  %}
     'orange'
     {% else %}
     'gt50'
@@ -71,11 +71,11 @@
     //bubbles, custom popup on hover template
     map.bubbles([
 
-{% for value in b_dict %}
+{% for value in b_list %}
 
     {
-    //  name: value[0].toString(), latitude: 21.32, longitude: 5.32, radius: 10, fillKey: 'gt50'
-    name: {{value[0] | string}}, latitude: {{value[1]}}, longitude: {{value[2]}}, radius: Math.sqrt({{value[0] | int}}), fillkey:'gt50'
+
+    name: "{{value[1] | string}} billionaires", latitude: {{value[3]}}, longitude: {{value[4]}}, radius: Math.sqrt({{value[1]}}), fillkey:'gt50'
     },
     {% endfor %}
     /*  {name: 'Hot', latitude: 21.32, longitude: 5.32, radius: 10, fillKey: 'gt50'},
