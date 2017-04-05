@@ -2,6 +2,7 @@
 <meta charset="utf-8">
 <head>
   <link rel="stylesheet" type="text/css" href="static/css/line_graph.css">
+  <link rel="stylesheet" type="text/css" href="static/css/bar_graph.css">
 </head>
 <body>
   <script src="http://d3js.org/d3.v3.min.js"></script>
@@ -13,9 +14,9 @@
   <p><a href="http://datamaps.github.io/">DataMaps Project Homepage</a></p>
   -->
   <center>
-      <h1> Map of Billionaires </h1>
-  <div id="container1" style="position: relative; width: 80%; max-height: 450px;"></div>
-</center>
+    <h1> Map of Billionaires </h1>
+    <div id="container1" style="position: relative; width: 80%; max-height: 450px;"></div>
+  </center>
 
   <script>
     //basic map config with custom fills, mercator projection
@@ -68,13 +69,13 @@
 
     //bubbles, custom popup on hover template
     map.bubbles([
-{% for key, value in b_dict.iteritems() %}
+    {% for key, value in b_dict.iteritems() %}
     {
     //  name: value[0].toString(), latitude: 21.32, longitude: 5.32, radius: 10, fillKey: 'gt50'
-      name: {{value[0] | string}}, latitude: {{value[1]}}, longitude: {{value[2]}}, radius: Math.sqrt({{value[0] | int}}), fillkey:'gt50'
+    name: {{value[0] | string}}, latitude: {{value[1]}}, longitude: {{value[2]}}, radius: Math.sqrt({{value[0] | int}}), fillkey:'gt50'
     },
-{% endfor %}
-  /*  {name: 'Hot', latitude: 21.32, longitude: 5.32, radius: 10, fillKey: 'gt50'},
+    {% endfor %}
+    /*  {name: 'Hot', latitude: 21.32, longitude: 5.32, radius: 10, fillKey: 'gt50'},
     {name: 'Chilly', latitude: -25.32, longitude: 120.32, radius: 18, fillKey: 'lt50'},
     {name: 'Hot again', latitude: 21.32, longitude: -84.32, radius: 8, fillKey: 'gt50'},
     {name: '300 Billionares', latitude: 40.7, longitude: -74, radius: 38, fillKey: 'gt50'}
@@ -133,16 +134,19 @@
 
   <center>
     <h5>Bar Graphs</h5>
-      
-     <div id="bar_graph_fragility"></div>
+
+    <div id="bar_graph_fragility"></div>
+    <div id="bar_graph_development"></div>
+
+    <h6>Level of Development</h6>
+    <div class="chart" id="dev">
+    </div>
+
+    <h6>Fragillity of Nation</h6>
+    <div class="chart" id="frag">
+    </div>
 
   </center>
-
-
-  <br>  <br>  <br>  <br>  <br>  <br>  <br>  <br>
-  <br>  <br>  <br>  <br>  <br>  <br>  <br>  <br
-  <br>  <br>  <br>  <br>  <br>  <br>  <br>  <br>
-  <br>  <br>  <br>  <br>  <br>  <br>  <br>  <br>
 
   {% if line_graph_country != "default" %}
   <script>
@@ -151,7 +155,8 @@
   <script src="static/js/line_graph_base.js"></script>
   <script src="static/js/line_graph_development.js"></script>
   <script src="static/js/line_graph_fragility.js"></script>
-    <script src="static/js/bar_graph_fragility.js"></script>
+  <script src="static/js/1.js"></script>
+  <script src="static/js/2.js"></script>
   {% endif %}
 
 </body>

@@ -22,7 +22,6 @@ d3.json("/line/fragility/" + country + ".json", function(error, data) {
     load2.text("");
 
     if (data.length <= 0) {
-	console.log("ok");
 	svg2.append("g")
 	    .attr("class", "n/a");
 
@@ -31,12 +30,12 @@ d3.json("/line/fragility/" + country + ".json", function(error, data) {
 	    .attr("text-anchor", "middle")
 	    .attr("x", width / 2)
 	    .attr("y", height / 2)
-	    .text("Data not available");	
+	    .text("Data not available");
 
 	// Scale the range of the data
 	x.domain([0, 1]);
 	y.domain([0, 1]);
-    } else {	
+    } else {
 	// Scale the range of the data
 	x.domain(d3.extent(data, function(d) { return d.date; }));
 	y.domain([-0.5, d3.max(data, function(d) { return d.index; })]);
@@ -46,7 +45,7 @@ d3.json("/line/fragility/" + country + ".json", function(error, data) {
 	    .attr("class", "line")
 	    .attr("d", valueline(data));
     }
-    
+
     // Add the title
     svg2.append("g")
 	.attr("class", "title");
