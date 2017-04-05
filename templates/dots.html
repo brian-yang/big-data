@@ -26,24 +26,25 @@
     height: 500,
     fills: {
     defaultFill: '#f0af0a',
-    lt50: 'rgba(0,244,244,0.9)',
-    gt50: 'red',
-    blue: 'blue',
-    orange: 'orange',
-    a: 'rgba(0,244,0,0.9)'
+    gt50: 'rgb(255,0,0)',
+    yellow: 'rgb(255,215,0)',
+    orange: 'rgb(255,140,0)',
+    green: 'rgba(0,244,0,0.9)'
     },
 
     data: {
 
     {% for country in sf_list %}
 
-    {{country[0] | safe}} : {fillKey:
-    {% if country[1] > 20 %}
-    'gt50'
-    {% elif country[1] > 10  %}
+    {{country[2] | string}} : {fillKey:
+    {% if country[3] < 5 %}
+    'green'
+    {% elif country[3] < 10  %}
+    'yellow'
+    {% elif country[3] < 10  %}
     'orange'
     {% else %}
-    'green'
+    'gt50'
     {% endif %}
     } ,
 
@@ -68,7 +69,7 @@
 
     //bubbles, custom popup on hover template
     map.bubbles([
-{% for key, value in b_dict.iteritems() %}
+{% for value in b_dict %}
     {
     //  name: value[0].toString(), latitude: 21.32, longitude: 5.32, radius: 10, fillKey: 'gt50'
       name: {{value[0] | string}}, latitude: {{value[1]}}, longitude: {{value[2]}}, radius: Math.sqrt({{value[0] | int}}), fillkey:'gt50'
@@ -133,11 +134,11 @@
 
   <center>
     <h5>Bar Graphs</h5>
-      
+
      <div id="bar_graph_fragility"></div>
       <div id="bar_graph_development"></div>
-      
-    
+
+
     <h6>Level of Development</h6>
     <div class="chart" id="dev">
     </div>
@@ -161,6 +162,7 @@
   <script src="static/js/line_graph_base.js"></script>
   <script src="static/js/line_graph_development.js"></script>
   <script src="static/js/line_graph_fragility.js"></script>
+    <script src="static/js/bar_graph_fragility.js"></script>
   {% endif %}
 
 </body>
